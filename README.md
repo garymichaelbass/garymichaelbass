@@ -107,26 +107,28 @@ scaffolding. See that repo for the ten-minute quickstart to generate your own.
 
 ## Repository Layout & Execution Model
 
-Every one of the 128 repositories follows the same structure, so once you've run one, you know how to run all of them:
+Every one of the 128 repositories follows the same structure, so once you have run one, you know how to run all of them:
 
-    <repo>/
-    ├── run_benchmark.sh   # entry point: bash run_benchmark.sh [--baseline|--extended]
-    ├── setup.sh           # installs the ROCm/CUDA + Python stack for this workload
-    ├── config/            # benchmark_config.yaml, hardware_profile.*.yaml
-    ├── scripts/           # parsing/validation drivers (parse_results.py, validate_results.py, ...)
-    ├── results/
-    │   ├── raw/<timestamp>_<repo>_<host>/   # per-run logs, metrics, artifacts
-    │   └── parsed/                          # normalized SQLite + CSV output
-    └── tests/             # pytest correctness thresholds
+```text
+<repo>/
+├── run_benchmark.sh      # bash run_benchmark.sh [--baseline|--extended]
+├── setup.sh              # installs the ROCm/CUDA + Python stack
+├── config/               # benchmark_config.yaml, hardware_profile.*.yaml
+├── scripts/              # parse_results.py, validate_results.py, ...
+├── tests/                # pytest correctness thresholds
+└── results/
+    ├── raw/<timestamp>_<repo>_<host>/   # per-run logs, metrics, artifacts
+    └── parsed/                          # SQLite + CSV
+```
 
 ### Running a workload
 
-\`\`\`bash
+```bash
 gh repo clone garymichaelbass/<repo-name>
 cd <repo-name>
-bash run_benchmark.sh              # smoke profile (~1 min) — install/functionality check
-bash run_benchmark.sh --baseline   # standard run (3–5 min)
-bash run_benchmark.sh --extended   # full characterization (8–15 min)
-\`\`\`
+bash run_benchmark.sh              # smoke (~1 min)
+bash run_benchmark.sh --baseline   # 3–5 min
+bash run_benchmark.sh --extended   # 8–15 min
+```
 
-Each run writes latency/throughput/GFLOPS telemetry and memory high-water marks to `results/raw/`, and persists to SQLite + CSV under `results/parsed/` for cross-node aggregation.
+Each run writes latency, throughput or GFLOPS, and memory high-water marks under `results/raw/`, then persists SQLite and CSV under `results/parsed/` for cross-node aggregation.
