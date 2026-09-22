@@ -28,6 +28,48 @@ The workload suites cover five primary areas:
 
 ---
 
+## Benchmark Categories
+
+The workload suites cover seven primary areas:
+
+- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
+- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
+- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
+- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
+- **System Validation & Reliability** — correctness testing, platform bring-up, and hardware/software health validation
+- **System Profiling & Performance Analysis** — telemetry, performance counters, timing, and system-level characterization
+- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
+
+---
+
+### Benchmark Workload Categories
+
+The 32 standardized workloads evaluate seven primary system and compute domains:
+
+1. **System Validation & Reliability** — Platform bring-up, configuration verification, hardware/software health, and silent data corruption (ECC/SDC).
+2. **System Profiling & Performance Analysis** — Hardware PMU counters, OS microbenchmarks, and kernel performance characterization.
+3. **Memory Hierarchy & Data Movement** — Host/device transfers, DDR5, HBM, NUMA cache latency, and collective fabric bandwidth (RCCL/NCCL).
+4. **Compute & Math Kernels** — GEMM (rocBLAS/cuBLAS), convolution solvers (MIOpen/cuDNN), PyTorch microkernels, and FP64 Linpack.
+5. **Model Training & Inference Baselines** — Vision and Transformer workloads spanning PyTorch training steps, BF16 inference sweeps, and JAX XLA compilation (ResNet-50, BERT, SDXL, DistilBERT).
+6. **LLM Inference & Serving Systems** — High-throughput serving engines (vLLM, SGLang), KV-cache saturation, Time-To-First-Token (TTFT), and token generation latency.
+7. **End-to-End Application Pipelines** — Full-stack retrieval and generation workflows (FAISS vector indexing and RAG pipelines).
+
+---
+
+### Benchmark Categories
+
+The workload suites cover seven primary areas:
+
+- **Memory, Bandwidth & Data Movement** — HBM, fabric, copies, cache, and peak bandwidth
+- **Training, Inference, Model Workloads** — representative CNN and Transformer train/infer steps
+- **Compute & Math Kernels** — BLAS, LINPACK, and other dense math microbenchmarks
+- **LLM Inference & Serving** — throughput, latency, KV-cache, and token generation
+- **System Validation & Reliability** — correctness checks and platform health
+- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
+- **End-to-End Application Pipelines** — full-stack paths such as retrieval-augmented generation
+
+---
+
 ## Execution Profiles
 
 Where applicable, workloads support three execution profiles:
@@ -36,7 +78,7 @@ Where applicable, workloads support three execution profiles:
 |---|---:|---|
 | **Smoke** | ≤ 1 minute | Quick installation and functionality validation |
 | **Baseline** | 3–5 minutes | Standard benchmark execution |
-| **Extended** | ~20 minutes | Longer performance characterization |
+| **Extended** | 8-15 minutes | Longer performance characterization |
 
 ---
 
