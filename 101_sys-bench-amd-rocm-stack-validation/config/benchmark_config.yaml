@@ -1,0 +1,28 @@
+# Generated from BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend for workload 101.
+# Parameter names come from Parameter_01..Parameter_20. Values come only from Parameters_SmokeBaselineExtend.
+# Do not invent or replace these tokens/numbers. Nested list/map reshaping is allowed
+# when the runner needs structured sweeps; keep the same tokens and numbers.
+# Command columns on Workload_Definitions are generated display. Sweep/list flags in those
+# commands are documentary; omit them so yaml expands cases.
+# sweep.profile is baseline for LLM Serving and smoke otherwise.
+# Add thresholds: or baselines: from hardware_profile.mi300x.yaml and Workload Type.
+sweep:
+  profile: smoke
+  kernel_version: 6.8.0
+  driver_version: 6
+  rocm_version: 7.2.1
+  required_packages: rocm-core,rocm-smi
+  permissions_check: true
+  output_format: csv
+
+thresholds:
+  rocm_package_mismatch_count_min: 0
+  rocm_package_mismatch_count_max: 0
+  kernel_driver_mismatch_count_min: 0
+  kernel_driver_mismatch_count_max: 0
+  firmware_compliance_percent_min: 100
+  firmware_compliance_percent_max: 100
+  driver_compliance_percent_min: 100
+  driver_compliance_percent_max: 100
+  permission_error_count_min: 0
+  permission_error_count_max: 0

@@ -1,0 +1,43 @@
+# Generated from BenchmarkSpecDefinitions.xlsx::Parameters_SmokeBaselineExtend for workload 105.
+# Parameter names come from Parameter_01..Parameter_20. Values come only from Parameters_SmokeBaselineExtend.
+# Do not invent or replace these tokens/numbers. Nested list/map reshaping is allowed
+# when the runner needs structured sweeps; keep the same tokens and numbers.
+# Command columns on Workload_Definitions are generated display. Sweep/list flags in those
+# commands are documentary; omit them so yaml expands cases.
+# sweep.profile is baseline for LLM Serving and smoke otherwise.
+# Add thresholds: or baselines: from hardware_profile.mi300x.yaml and Workload Type.
+sweep:
+  profile: smoke
+  device_id: 0
+  op_name: matmul,conv2d
+  dtype:
+    smoke: f16_r
+    baseline: f16_r,bf16_r,f32_r
+    extended: f16_r,bf16_r,f32_r
+  shape:
+    smoke: matmul=1x128x128;conv2d=1x3x32x32
+    baseline: matmul=1x128x128,8x512x512;conv2d=1x3x32x32,8x3x64x64
+    extended: matmul=1x128x128,8x512x512;conv2d=1x3x32x32,8x3x64x64
+  rtol:
+    smoke: 0.02
+    baseline: f16_r=0.02,bf16_r=0.02,f32_r=1e-05
+    extended: f16_r=0.02,bf16_r=0.02,f32_r=1e-05
+  atol:
+    smoke: 0.1
+    baseline: f16_r=0.1,bf16_r=0.5,f32_r=1e-03
+    extended: f16_r=0.1,bf16_r=0.5,f32_r=1e-03
+  num_iterations:
+    smoke: 2
+    baseline: 50
+    extended: 100
+  seed: 42
+
+thresholds:
+  max_abs_error_min: 0
+  max_abs_error_max: 100
+  max_rel_error_min: 0
+  max_rel_error_max: 1000000000.0
+  tolerance_compliance_min: 100
+  tolerance_compliance_max: 100
+  coverage_count_min: 1
+  failure_count_max: 0
