@@ -18,18 +18,6 @@ A standardized matrix of 32 hardware, compute, and AI inference validation workl
 
 ## Benchmark Categories
 
-The workload suites cover five primary areas:
-
-- **GPU Compute**
-- **LLM Serving**
-- **Memory / Transfer**
-- **CPU / System**
-- **Validation / Correctness**
-
----
-
-## Benchmark Categories
-
 The workload suites cover seven primary areas:
 
 - **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
