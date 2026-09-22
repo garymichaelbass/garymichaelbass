@@ -42,20 +42,6 @@ The workload suites cover seven primary areas:
 
 ---
 
-### Benchmark Workload Categories
-
-The 32 standardized workloads evaluate seven primary system and compute domains:
-
-1. **System Validation & Reliability** — Platform bring-up, configuration verification, hardware/software health, and silent data corruption (ECC/SDC).
-2. **System Profiling & Performance Analysis** — Hardware PMU counters, OS microbenchmarks, and kernel performance characterization.
-3. **Memory Hierarchy & Data Movement** — Host/device transfers, DDR5, HBM, NUMA cache latency, and collective fabric bandwidth (RCCL/NCCL).
-4. **Compute & Math Kernels** — GEMM (rocBLAS/cuBLAS), convolution solvers (MIOpen/cuDNN), PyTorch microkernels, and FP64 Linpack.
-5. **Model Training & Inference Baselines** — Vision and Transformer workloads spanning PyTorch training steps, BF16 inference sweeps, and JAX XLA compilation (ResNet-50, BERT, SDXL, DistilBERT).
-6. **LLM Inference & Serving Systems** — High-throughput serving engines (vLLM, SGLang), KV-cache saturation, Time-To-First-Token (TTFT), and token generation latency.
-7. **End-to-End Application Pipelines** — Full-stack retrieval and generation workflows (FAISS vector indexing and RAG pipelines).
-
----
-
 ### Benchmark Categories
 
 The workload suites cover seven primary areas:
