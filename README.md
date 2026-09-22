@@ -36,23 +36,9 @@ The workload suites cover seven primary areas:
 - **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
 - **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
 - **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
-- **System Validation & Reliability** — correctness testing, platform bring-up, and hardware/software health validation
-- **System Profiling & Performance Analysis** — telemetry, performance counters, timing, and system-level characterization
-- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
-
----
-
-### Benchmark Categories
-
-The workload suites cover seven primary areas:
-
-- **Memory, Bandwidth & Data Movement** — HBM, fabric, copies, cache, and peak bandwidth
-- **Training, Inference, Model Workloads** — representative CNN and Transformer train/infer steps
-- **Compute & Math Kernels** — BLAS, LINPACK, and other dense math microbenchmarks
-- **LLM Inference & Serving** — throughput, latency, KV-cache, and token generation
-- **System Validation & Reliability** — correctness checks and platform health
+- **System Validation & Reliability** — correctness testing and hardware/software health validation
 - **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
-- **End-to-End Application Pipelines** — full-stack paths such as retrieval-augmented generation
+- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
 
 ---
 
@@ -65,6 +51,18 @@ Where applicable, workloads support three execution profiles:
 | **Smoke** | ≤ 1 minute | Quick installation and functionality validation |
 | **Baseline** | 3–5 minutes | Standard benchmark execution |
 | **Extended** | 8-15 minutes | Longer performance characterization |
+
+---
+
+
+## How These Repositories Are Built
+
+Every repository in this matrix is generated, not hand-written, by
+[`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garymichaelbass/ai-agent-gpu-benchmark-repo-generator) —
+a spec-driven framework that turns one row of a workload spreadsheet into a
+complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
+CI workflows, parsing/validation logic, and a smoke test, with zero manual
+scaffolding. See that repo for the ten-minute quickstart to generate your own.
 
 ---
 
@@ -107,10 +105,28 @@ Where applicable, workloads support three execution profiles:
 
 ---
 
-## ⚙️ Standardized Architecture & Automation
+## Repository Layout & Execution Model
 
-Each repository follows a standard execution harness and layout:
-* **Standalone Drivers:** Headless shell drivers (`run_bench.sh`) for isolated execution.
-* **Unified Metrics:** Standardized telemetry logging (latency, token/sec, GFLOPS, memory high-water marks, thermals).
-* **Data Persistence:** Automated persistence across SQLite and CSV formats for uniform cross-node aggregation.
-* **Correctness Assertions:** `pytest` test validation suites to enforce hardware/software correctness thresholds.
+Every one of the 128 repositories follows the same structure, so once you've run one, you know how to run all of them:
+
+    <repo>/
+    ├── run_benchmark.sh   # entry point: bash run_benchmark.sh [--baseline|--extended]
+    ├── setup.sh           # installs the ROCm/CUDA + Python stack for this workload
+    ├── config/            # benchmark_config.yaml, hardware_profile.*.yaml
+    ├── scripts/           # parsing/validation drivers (parse_results.py, validate_results.py, ...)
+    ├── results/
+    │   ├── raw/<timestamp>_<repo>_<host>/   # per-run logs, metrics, artifacts
+    │   └── parsed/                          # normalized SQLite + CSV output
+    └── tests/             # pytest correctness thresholds
+
+### Running a workload
+
+\`\`\`bash
+gh repo clone garymichaelbass/<repo-name>
+cd <repo-name>
+bash run_benchmark.sh              # smoke profile (~1 min) — install/functionality check
+bash run_benchmark.sh --baseline   # standard run (3–5 min)
+bash run_benchmark.sh --extended   # full characterization (8–15 min)
+\`\`\`
+
+Each run writes latency/throughput/GFLOPS telemetry and memory high-water marks to `results/raw/`, and persists to SQLite + CSV under `results/parsed/` for cross-node aggregation.
