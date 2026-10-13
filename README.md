@@ -1,5 +1,42 @@
 # GPU Performance Benchmarking & Platform Validation Matrix
 
+| Suite | GPU Platform | Operating System | Workloads |
+|---|---|---|---:|
+| AMD / Ubuntu 24.04 | AMD / ROCm | Ubuntu 24.04 | 101–132 |
+| NVIDIA / Ubuntu 24.04 | NVIDIA / CUDA | Ubuntu 24.04 | 201–232 |
+| AMD / Ubuntu 26.04 | AMD / ROCm | Ubuntu 26.04 | 301–332 |
+| NVIDIA / Ubuntu 26.04 | NVIDIA / CUDA | Ubuntu 26.04 | 401–432 |
+
+**128 total benchmark workloads**
+
+---
+
+## Benchmark Categories
+
+The workload suites cover seven primary areas:
+
+- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
+- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
+- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
+- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
+- **System Validation & Reliability** — correctness testing and hardware/software health validation
+- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
+- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
+
+---
+
+## Execution Profiles
+
+Where applicable, workloads support three execution profiles:
+
+| Profile | Typical Runtime | Purpose |
+|---|---:|---|
+| **Smoke** | ≤ 1 minute | Quick installation and functionality validation |
+| **Baseline** | 3–5 minutes | Standard benchmark execution |
+| **Extended** | 8-15 minutes | Longer performance characterization |
+
+---
+
 A standardized matrix of 32 hardware, compute, and AI inference validation workloads, run on AMD (ROCm) and NVIDIA (CUDA) accelerators under Ubuntu 24.04 and Ubuntu 26.04 LTS: four platform bundles, 128 workload repositories.
 
 **Lab technicians: start with [Install on a GPU Host](#install-on-a-gpu-host).** Pick your platform, copy one block, paste it into a root shell.
