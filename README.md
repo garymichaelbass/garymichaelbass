@@ -1,4 +1,45 @@
-# GPU Performance Benchmarking & Platform Validation Matrix
+# GPU Performance Benchmarking & Platform Validation Workloads
+
+- A standardized matrix of 32 hardware, compute, and AI inference validation workloads.
+- Run on AMD (ROCm) and NVIDIA (CUDA) accelerators under Ubuntu 24.04 and Ubuntu 26.04 LTS.
+- Four platform bundles (AMD/24.04, AMD/26.04, nVidia/24.04, nVidia/26.04), 128 workload repositories.
+- Downloadable individually or as 32-workload bundles.
+
+### Download, install and run a single workload (Workload 101 - AMD Ubuntu 24.04):
+
+```bash
+apt install git -y
+git clone https://github.com/garys-gpu-benchmarks/101-sys-bench-amd-rocm-stack-validation-ubu2404.git
+cd 101-sys-bench-amd-rocm-stack-validation-ubu2404
+./run_benchmark.sh --profile smoke --validate  # performs install and run
+```
+
+### Download all 32 workloads (Workloads 101 to 132 - AMD Ubuntu 24.04):
+
+```bash
+apt install git -y
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
+cd /opt/benchmarks
+./run.sh list         # every workload should show "ready"
+```
+
+### After downloading all 32 workloads, run the smoke test for all 32 workloads:
+
+```bash
+cd /opt/benchmarks
+./run_benchmark_suite.sh -p smoke   # performs install and run smoke test for all 32 workloads
+```
+
+### Command for each bundle flavor (AMD+Ubuntu_24.04, AMD+Ubuntu_26.04, nVidia+Ubuntu_24.04, nVidia+Ubuntu_26.04):
+
+```bash
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2604 /opt/benchmarks     # AMD+Ubuntu_26.04
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404 /opt/benchmarks  # nVidia+Ubuntu_24.04
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks  # nVidia+Ubuntu_26.04
+```
+
+---
 
 | Suite | GPU Platform | Operating System | Workloads |
 |---|---|---|---:|
