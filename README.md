@@ -123,50 +123,6 @@ GPU_HOST=203.0.113.10                              # replace with your GPU host'
 ./scripts/get_remote_info.sh root@$GPU_HOST        # copy ledgers, raw and parsed results, suite logs
 ./scripts/show_metrics.sh 115 --host $GPU_HOST     # one workload's runs, per-profile means
 ```
-
----
-
-## Benchmark Suites
-
-| Bundle repository | GPU Platform | Operating System | Workloads |
-|---|---|---|---:|
-| [`bundle-amd-ubuntu-2404`](https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404) | AMD / ROCm | Ubuntu 24.04 | 101–132 |
-| [`bundle-nvidia-ubuntu-2404`](https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404) | NVIDIA / CUDA | Ubuntu 24.04 | 201–232 |
-| [`bundle-amd-ubuntu-2604`](https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2604) | AMD / ROCm | Ubuntu 26.04 | 301–332 |
-| [`bundle-nvidia-ubuntu-2604`](https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604) | NVIDIA / CUDA | Ubuntu 26.04 | 401–432 |
-
-Each bundle holds its 32 workload repositories as git submodules pinned to a tested release. Workload *x*NN is the same test on every platform: 115, 215, 315 and 415 are all BabelStream HBM bandwidth.
-
-**128 total benchmark workloads**
-
----
-
-## Benchmark Categories
-
-The workload suites cover seven primary areas:
-
-- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
-- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
-- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
-- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
-- **System Validation & Reliability** — correctness testing and hardware/software health validation
-- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
-- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
-
----
-
-## Execution Profiles
-
-Where applicable, workloads support three execution profiles:
-
-| Profile | Typical Runtime | Purpose |
-|---|---:|---|
-| **Smoke** | ≤ 1 minute | Quick installation and functionality validation |
-| **Baseline** | 3–5 minutes | Standard benchmark execution |
-| **Extended** | 8–15 minutes | Longer performance characterization |
-
-Runtimes are per workload, after its one-time install.
-
 ---
 
 ## 📊 Workload Repository Matrix
