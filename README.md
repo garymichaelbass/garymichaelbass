@@ -1,174 +1,34 @@
-# GPU Performance Benchmarking & Platform Validation Workloads
+# GPU Benchmark & Platform Validation Workloads
 
-- A standardized matrix of 32 hardware, compute, and AI inference validation workloads.
-- Run on AMD (ROCm) and NVIDIA (CUDA) accelerators under Ubuntu 24.04 and Ubuntu 26.04 LTS.
-- Four platform bundles (AMD/24.04, AMD/26.04, nVidia/24.04, nVidia/26.04), 128 workload repositories.
+- A standardized collection of 32 hardware, compute, and AI inference validation workloads.
+- Run on AMD (ROCm) and NVIDIA (CUDA) accelerators under Ubuntu 24.04 LTS and Ubuntu 26.04 LTS.
+- Four platform bundles (AMD/24.04, AMD/26.04, NVIDIA/24.04, NVIDIA/26.04) yielding 128 workload repositories.
 - Downloadable individually or as 32-workload bundles.
 
-### Download, install and run a single workload (Workload 101 - AMD Ubuntu 24.04):
+---
 
-```bash
-apt install git -y
-git clone https://github.com/garys-gpu-benchmarks/101-sys-bench-amd-rocm-stack-validation-ubu2404.git
-cd 101-sys-bench-amd-rocm-stack-validation-ubu2404
-./run_benchmark.sh --profile smoke --validate  # performs install and run
-```
+### Four Platform Bundles
 
-### Download all 32 workloads (Workloads 101 to 132 - AMD Ubuntu 24.04):
+| Suite                       | GPU Platform   | Operating System | Workload Numbers   | Repos |
+|-----------------------------|----------------|------------------|----------------|------:|
+| **AMD / Ubuntu 24.04**      | AMD ROCm     | Ubuntu 24.04     | 101–132        |    32 |
+| **NVIDIA / Ubuntu 24.04**   | NVIDIA CUDA  | Ubuntu 24.04     | 201–232        |    32 |
+| **AMD / Ubuntu 26.04**      | AMD ROCm     | Ubuntu 26.04     | 301–332        |    32 |
+| **NVIDIA / Ubuntu 26.04**   | NVIDIA CUDA  | Ubuntu 26.04     | 401–432        |    32 |
 
-```bash
-apt install git -y
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
-cd /opt/benchmarks
-./run.sh list         # every workload should show "ready"
-```
-
-### After downloading all 32 workloads, run the smoke test for all 32 workloads:
-
-```bash
-cd /opt/benchmarks
-./run_benchmark_suite.sh -p smoke   # performs install and run smoke test for all 32 workloads
-```
-
-### Command for each bundle flavor (AMD+Ubuntu_24.04, AMD+Ubuntu_26.04, nVidia+Ubuntu_24.04, nVidia+Ubuntu_26.04):
-
-```bash
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2604 /opt/benchmarks     # AMD+Ubuntu_26.04
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404 /opt/benchmarks  # nVidia+Ubuntu_24.04
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks  # nVidia+Ubuntu_26.04
-```
+**128 total repositories** (32 unique workloads × 4 platforms)
 
 ---
 
-| Suite | GPU Platform | Operating System | Workloads |
-|---|---|---|---:|
-| AMD / Ubuntu 24.04 | AMD / ROCm | Ubuntu 24.04 | 101–132 |
-| NVIDIA / Ubuntu 24.04 | NVIDIA / CUDA | Ubuntu 24.04 | 201–232 |
-| AMD / Ubuntu 26.04 | AMD / ROCm | Ubuntu 26.04 | 301–332 |
-| NVIDIA / Ubuntu 26.04 | NVIDIA / CUDA | Ubuntu 26.04 | 401–432 |
+<a href="images/github-organization.png">
+  <img src="images/github-organization.png" alt="garys-gpu-benchmarks GitHub organization: 4 bundle repositories, 128 benchmark repositories, 3 suite repositories" width="100%">
+</a>
 
-**128 total benchmark workloads**
-
----
-
-## Benchmark Categories
-
-The workload suites cover seven primary areas:
-
-- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
-- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
-- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
-- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
-- **System Validation & Reliability** — correctness testing and hardware/software health validation
-- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
-- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
-
----
-
-## Execution Profiles
-
-Where applicable, workloads support three execution profiles:
-
-| Profile | Typical Runtime | Purpose |
-|---|---:|---|
-| **Smoke** | ≤ 1 minute | Quick installation and functionality validation |
-| **Baseline** | 3–5 minutes | Standard benchmark execution |
-| **Extended** | 8-15 minutes | Longer performance characterization |
-
----
-
-A standardized matrix of 32 hardware, compute, and AI inference validation workloads, run on AMD (ROCm) and NVIDIA (CUDA) accelerators under Ubuntu 24.04 and Ubuntu 26.04 LTS: four platform bundles, 128 workload repositories.
-
-**Lab technicians: start with [Install on a GPU Host](#install-on-a-gpu-host).** Pick your platform, copy one block, paste it into a root shell.
-
----
-
-## Install on a GPU Host
-
-**1. Find your platform.** On the GPU host:
-
-```bash
-. /etc/os-release && echo "Ubuntu $VERSION_ID"   # 24.04 or 26.04
-lspci | grep -iE 'vga|3d|display'               # AMD (Instinct MI-series) or NVIDIA
-```
-
-**2. Become root** (`sudo -i`), then paste the block for your platform. It installs `git`, downloads all 32 workloads into `/opt/benchmarks`, lists them (every line should say `ready`), and runs three short smoke tests: the GPU software stack, GPU health, and HBM memory bandwidth.
-
-### AMD · Ubuntu 24.04 — workloads 101–132
-
-```bash
-apt-get update && apt-get install -y git tmux
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks
-cd /opt/benchmarks && ./run.sh list
-./run_benchmark_suite.sh -w 101,102,115 -p smoke
-```
-
-### NVIDIA · Ubuntu 24.04 — workloads 201–232
-
-```bash
-apt-get update && apt-get install -y git tmux
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404 /opt/benchmarks
-cd /opt/benchmarks && ./run.sh list
-./run_benchmark_suite.sh -w 201,202,215 -p smoke
-```
-
-### AMD · Ubuntu 26.04 — workloads 301–332
-
-```bash
-apt-get update && apt-get install -y git tmux
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2604 /opt/benchmarks
-cd /opt/benchmarks && ./run.sh list
-./run_benchmark_suite.sh -w 301,302,315 -p smoke
-```
-
-### NVIDIA · Ubuntu 26.04 — workloads 401–432
-
-```bash
-apt-get update && apt-get install -y git tmux
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks
-cd /opt/benchmarks && ./run.sh list
-./run_benchmark_suite.sh -w 401,402,415 -p smoke
-```
-
-The first run takes much longer than later ones: it installs the ROCm or CUDA stack and each workload's software. **On AMD, setup may restart the machine once.** If it does, log back in, wait a few minutes for setup to finish on its own, then run the same `./run_benchmark_suite.sh` line again.
-
-> Use `git clone` exactly as shown. GitHub's **Download ZIP** leaves the workload folders empty.
->
-> For the AI model workloads (x23–x31), if a model's Hugging Face license requires it, accept the license there and run `export HF_TOKEN=hf_...` first.
-
-### After the install
-
-All commands run from `/opt/benchmarks`. Each command prints full usage with `--help`.
-
-| Task | Command |
-|---|---|
-| Smoke test every workload (installs each on first use) | `./run_benchmark_suite.sh -p smoke` |
-| One workload, baseline profile (example: 107) | `./run_benchmark_suite.sh -w 107 -p baseline` |
-| A range of workloads | `./run_benchmark_suite.sh -w 101-110 -p smoke` |
-| One workload with its output on screen | `./run.sh 105` · `./run.sh 105 --baseline` |
-| Everything, all three profiles (many hours) | `tmux new -s bench` then `./run_benchmark_suite.sh` |
-| Soak test: everything, 20 times | `./run_benchmark_suite.sh -r 20` |
-| Preview what would run | `./run_benchmark_suite.sh --dry-run` |
-| Update to the newest release | `git pull && git submodule update --init --recursive` |
-
-Swap the workload numbers for your platform (107 → 207, 307 or 407). Logs go to `/opt/benchmarks/benchmark_suite_log/`, and the suite ends with a pass/fail summary. Inside `tmux`, detach with **Ctrl+B** then **D** and reattach with `tmux attach -t bench`.
-
-### Collecting results on your laptop
-
-[`gpu-bench-suite`](https://github.com/garys-gpu-benchmarks/gpu-bench-suite) has two operator scripts that run on your laptop (Git Bash on Windows) and reach the host over SSH:
-
-```bash
-git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite && cd gpu-bench-suite
-GPU_HOST=203.0.113.10                              # replace with your GPU host's IP
-./scripts/get_remote_info.sh root@$GPU_HOST        # copy ledgers, raw and parsed results, suite logs
-./scripts/show_metrics.sh 115 --host $GPU_HOST     # one workload's runs, per-profile means
-```
 ---
 
 ## 📊 Workload Repository Matrix
 
-| # | Workload Domain & Description | AMD (Ubuntu 24.04) | NVIDIA (Ubuntu 24.04) | AMD (Ubuntu 26.04) | NVIDIA (Ubuntu 26.04) |
+| Index | Workload Description | AMD (Ubuntu 24.04) | NVIDIA (Ubuntu 24.04) | AMD (Ubuntu 26.04) | NVIDIA (Ubuntu 26.04) |
 | :-: | :--- | :---: | :---: | :---: | :---: |
 | **01** | System Config Verification | [101](https://github.com/garys-gpu-benchmarks/101-sys-bench-amd-rocm-stack-validation-ubu2404) | [201](https://github.com/garys-gpu-benchmarks/201-sys-bench-nvidia-cuda-stack-validation-ubu2404) | [301](https://github.com/garys-gpu-benchmarks/301-sys-bench-amd-rocm-stack-validation-ubu2604) | [401](https://github.com/garys-gpu-benchmarks/401-sys-bench-nvidia-cuda-stack-validation-ubu2604) |
 | **02** | System Validation (Clocks, Temp, Health) | [102](https://github.com/garys-gpu-benchmarks/102-sys-bench-amd-rocm-health-validation-ubu2404) | [202](https://github.com/garys-gpu-benchmarks/202-sys-bench-nvidia-gpu-health-validation-ubu2404) | [302](https://github.com/garys-gpu-benchmarks/302-sys-bench-amd-rocm-health-validation-ubu2604) | [402](https://github.com/garys-gpu-benchmarks/402-sys-bench-nvidia-gpu-health-validation-ubu2604) |
@@ -205,6 +65,162 @@ GPU_HOST=203.0.113.10                              # replace with your GPU host'
 
 ---
 
+## Execution Mode
+
+| Profile | Typical Runtime | Purpose |
+|---|---:|---|
+| **Smoke** | ≤ 1 minute | Quick installation and functionality validation (default) |
+| **Baseline** | 3–5 minutes | Standard benchmark execution |
+| **Extended** | 8–15 minutes | Longer performance characterization |
+
+---
+### Benchmark Specifications Definitions (Master Blueprint for Every Repository)
+
+[Download BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
+
+Download and open the Excel workbook to review workload definitions,
+validation objectives, metrics, and execution parameters.
+
+---
+### System Requirements
+
+- **OS:** a server running Ubuntu 24.04 LTS or 26.04 LTS, with root or sudo access
+- **AMD:** one MI300X GPU (gfx942); `setup.sh` installs ROCm
+- **NVIDIA:** one data-center GPU with 80+ GB of memory (H100 or newer); `setup.sh` installs CUDA
+- **Host:** 20+ vCPUs, 128+ GB RAM, and about 500 GB of local disk
+- **Network:** Internet access for packages and model downloads
+
+No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
+
+
+---
+### Run a Single Test (Example: Workload 107)
+Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
+
+```bash
+apt install git -y
+git clone https://github.com/garys-gpu-benchmarks/107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404.git
+cd 107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404
+bash run_benchmark.sh --help   # shows help
+bash run_benchmark.sh --smoke  # performs install and run (smoke test)
+```
+
+Inspect run results:
+
+```bash
+ls -a results/raw/*/*          # List results directory
+cat results/raw/*/metrics_summary.txt    
+bash run_benchmark.sh --smoke # Run the smoke test for the second time
+bash run_benchmark.sh --smoke # Run the smoke test for the third time
+bash show_metrics.sh 107      # Show metrics for 107
+bash list_runs.sh             # list every run on the server
+```
+
+---
+### Operator Tools (collect results to your laptop)
+
+Download the tools with Git (Git Bash works on Windows; assumes SSH to VM on port 22):
+
+```bash
+git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git
+cd gpu-bench-suite
+bash show_metrics.sh --host <server-address> 107       # Show metrics for 107
+bash list_runs.sh --host <server-address>              # list every run on the server
+bash get_benchmark_results.sh --host <server-address>  # copy results, ledger, and logs here
+```
+
+Add `--port N` if SSH is not on port 22. Run `git pull` in that folder to update the tools.
+
+Or download one file at a time (right-click → Save link as):
+[show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
+[list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
+[get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
+
+---
+### Run a Full Test Suite (Example: AMD+Ubuntu_24.04)
+NOTE: Use `git clone --recurse-submodules` exactly as shown. Because this is a bundle, each workload folder is a link to that workload's own repository. GitHub's **Download ZIP** does not follow those links, so it leaves the workload folders empty.
+
+Download a bundle of 32 workloads, install dependencies, and run the full suite (Workloads 101 to 132 - AMD Ubuntu 24.04):
+
+```bash
+apt install git -y
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
+cd /opt/benchmarks
+bash run_benchmark_suite.sh --list         # every workload should show "ready"
+```
+### REFERENCE: git command for each bundle flavor (AMD+Ubuntu_24.04, AMD+Ubuntu_26.04, NVIDIA+Ubuntu_24.04, NVIDIA+Ubuntu_26.04):
+
+```bash
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2604 /opt/benchmarks     # AMD+Ubuntu_26.04
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404 /opt/benchmarks  # NVIDIA+Ubuntu_24.04
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks  # NVIDIA+Ubuntu_26.04
+```
+---
+NOTE: Running the following command can take 75 minutes or more.
+
+After downloading the bundle, run the smoke test for all 32 workloads:
+
+```bash
+bash run_benchmark_suite.sh --smoke   # performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
+```
+---
+### After the install
+
+All commands run from `/opt/benchmarks`. Each command prints full usage with `--help`. NOTE: This uses `run_benchmark_suite.sh`, not `run_benchmark.sh`.
+
+| Task | Command |
+|---|---|
+| Smoke test every workload (installs each on first use) | `bash run_benchmark_suite.sh --smoke` |
+| Run one workload, baseline profile (example: 107) | `bash run_benchmark_suite.sh -w 107 --baseline` |
+| Run a range of workloads | `bash run_benchmark_suite.sh -w 101-110 --smoke` |
+| Run all three profiles (many hours) | `tmux new -s bench`, then `bash run_benchmark_suite.sh --smoke --baseline --extended` |
+| Execute a soak test: smoke profile, 20 times | `bash run_benchmark_suite.sh --smoke --repeat 20` |
+| Preview what would run | `bash run_benchmark_suite.sh --dry-run` |
+| Update to the newest release | `git pull && git submodule update --init --recursive` |
+
+- Swap the workload numbers for your platform (107 → 207, 307 or 407).
+- The suite's own logs go to `/opt/benchmarks/benchmark_suite_log/`, and the suite ends with a pass/fail summary.
+- Each workload run gets its own folder, `<workload>/results/raw/<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>/`, holding that run's `run.log`, raw output, parsed results, and system info.
+- Every run is also recorded as one line in the runtime ledger, `/var/opt/benchmarks/runtime_ledger.csv` (view it with `bash list_runs.sh`).
+- Inside `tmux`, detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`.
+
+---
+### Operator Tools (collect results to your laptop)
+
+Download the tools with Git (Git Bash works on Windows; assumes SSH to VM on port 22):
+
+```bash
+git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git
+cd gpu-bench-suite
+bash show_metrics.sh 107 --host <server-address>       # Show metrics for 107 on the server at <server-address>
+bash list_runs.sh --host <server-address>              # list every run on the server at <server-address>
+bash get_benchmark_results.sh --host <server-address>  # copy results, ledger, and logs here
+```
+
+Add `--port N` if SSH is not on port 22. Run `git pull` in that folder to update the tools.
+
+Or download one file at a time (right-click → Save link as):
+[show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
+[list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
+[get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
+
+---
+
+## Benchmark Categories
+
+The workload suites cover seven primary areas:
+
+- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
+- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
+- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
+- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
+- **System Validation & Reliability** — correctness testing and hardware/software health validation
+- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
+- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
+
+---
+
 ## Repository Layout & Execution Model
 
 Every one of the 128 repositories follows the same structure, so once you have run one, you know how to run all of them:
@@ -212,7 +228,9 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ```text
 <NNN>-<repo>/
 ├── setup.sh              # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
-├── run_benchmark.sh      # bash run_benchmark.sh --profile smoke|baseline|extended [--validate]
+├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
+├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
+├── list_runs.sh          # bash list_runs.sh --host <server-address>
 ├── config/               # benchmark_config.yaml, hardware profiles
 ├── scripts/              # parse_results.py, validate_results.py, ...
 ├── tests/                # correctness thresholds
@@ -223,17 +241,6 @@ Every one of the 128 repositories follows the same structure, so once you have r
     └── summary.json      # latest run summary
 ```
 
-### Running a single workload without a bundle
-
-```bash
-git clone https://github.com/garys-gpu-benchmarks/115-gpu-bench-amd-babelstream-hbm-bandwidth-ubu2404
-cd 115-gpu-bench-amd-babelstream-hbm-bandwidth-ubu2404
-bash setup.sh --assume-yes
-bash run_benchmark.sh --profile smoke --validate   # ~1 min
-bash run_benchmark.sh --baseline                   # 3–5 min
-bash run_benchmark.sh --extended                   # 8–15 min
-```
-
 Each run records latency, throughput or GFLOPS, and memory high-water marks under `results/raw/`, then persists SQLite and CSV under `results/parsed/` for cross-node aggregation.
 
 ---
@@ -241,8 +248,68 @@ Each run records latency, throughput or GFLOPS, and memory high-water marks unde
 ## How These Repositories Are Built
 
 Every repository in this matrix is generated, not hand-written, by
-[`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garymichaelbass/ai-agent-gpu-benchmark-repo-generator) —
+[`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven framework that turns one row of a workload spreadsheet into a
 complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
 CI workflows, parsing/validation logic, and a smoke test, with zero manual
-scaffolding. See that repo for the ten-minute quickstart to generate your own.
+scaffolding. The next section shows how to generate your own.
+
+---
+### Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132). An AI coding agent builds each repository on your computer, installs it on your GPU server, and runs its smoke test there before moving on to the next one.
+
+**What you need**
+
+- **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
+- **SSH key access to that server** as root.
+- **An AI coding agent:** Cursor, or another one such as Claude Code or GitHub Copilot.
+- **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash; the generator runs its commands in Git Bash.
+
+**1. Check that you can log in to the server**
+
+```bash
+ssh -i /path/to/.ssh/<your-key> root@<server-address>     # Windows example: /c/Users/<you>/.ssh/<your-key>
+```
+
+You should get a root prompt without typing a password, and the login banner should show Ubuntu 24.04. Add `-p <port>` if SSH is not on port 22 (Runpod usually needs this). Type `exit` to log out.
+
+**2. Create a workspace and download the generator**
+
+```bash
+mkdir -p ~/gpu-bench/workspace
+cd ~/gpu-bench/workspace
+git clone https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator.git
+pip install jsonschema openpyxl PyYAML
+```
+
+The generated repositories are written in `workspace/`, next to the generator folder. Use a dedicated folder like this one; the generator also copies its operator tools to the folder above it (`~/gpu-bench/`).
+
+**3. Open the workspace in your AI coding agent**
+
+In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
+
+**4. Submit the prompt**
+
+Replace the key path and server address with your own, and keep the backquotes around the `ssh` command:
+
+```text
+@ai-agent-gpu-benchmark-repo-generator/docs/AI_AGENT_INSTRUCTIONS.md
+Generate workloads 101 through 132.
+Remotely access Ubuntu VM with `ssh -i /path/to/.ssh/<your-key> root@<server-address>`
+```
+
+- For another bundle, change the range and use a matching server: `201 through 232` (NVIDIA, Ubuntu 24.04), `301 through 332` (AMD, Ubuntu 26.04), or `401 through 432` (NVIDIA, Ubuntu 26.04).
+- To try a single workload first, use `Generate workload 107.`; lists such as `Generate workloads 107, 115.` also work.
+
+**5. Let it run**
+
+Generating all 32 typically takes 90 minutes or longer. The agent works through the workloads one at a time and keeps going until every one is done or recorded as failed. It runs on your computer, so keep the computer awake and online until it finishes.
+
+**What you get**
+
+- **32 repositories** in `workspace/`, `101-sys-bench-amd-rocm-stack-validation-ubu2404/` through `132-gpu-bench-amd-rag-faiss-end2end-ubu2404/`, each laid out as shown in [Repository Layout & Execution Model](#repository-layout--execution-model).
+- **A ready server.** Each workload is installed and smoke-tested in `/opt/benchmarks/<repo>`, and the suite tools are in `/opt/benchmarks`, so the commands in [After the install](#after-the-install) work there right away.
+- **The operator tools** (`list_runs.sh`, `show_metrics.sh`, `get_benchmark_results.sh`) in `~/gpu-bench/`, ready to use as in [Operator Tools](#operator-tools-collect-results-to-your-laptop). The master copies of all the user scripts are in `ai-agent-gpu-benchmark-repo-generator/user_scripts/`.
+- **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`) and `batch_generation_manifest.json`, which lists each workload's result and generation time.
+
+To change what gets generated (parameters, metrics, success criteria), edit `ai-agent-gpu-benchmark-repo-generator/BenchmarkSpecDefinitions.xlsx` before you submit the prompt.
