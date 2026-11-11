@@ -163,9 +163,7 @@ git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nv
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks  # NVIDIA+Ubuntu_26.04
 ```
 ---
-NOTE 1: Initially running the following command will include running setup.sh and can take 75 minutes or more.
-
-NOTE 2: Running the following command a second time will take roughly 20 minutes.
+NOTE: Initially running the following command will include running setup.sh and can take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
 
 After downloading the bundle, run the smoke test for all 32 workloads:
 
@@ -174,6 +172,9 @@ bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for 
 ```
 
 Congratulations. You've executed an entire bundle of 32 workloads!
+
+<br>
+
 ---
 ### After the install
 
@@ -241,9 +242,7 @@ a spec-driven framework that turns one row of a workload spreadsheet into a
 complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
 CI workflows, parsing/validation logic, and a smoke test, with zero manual
 scaffolding. The next section shows how to generate your own.
-
 <br>
-
 ---
 ---
 ### Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
