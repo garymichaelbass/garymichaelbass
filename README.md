@@ -69,7 +69,7 @@
 
 | Profile | Typical Runtime | Purpose |
 |---|---:|---|
-| **Smoke** | ≤ 1 minute | Quick installation and functionality validation (default) |
+| **Smoke** | ≤ 1 minute | Installation and functionality validation (default), can be longer if setup.sh required first |
 | **Baseline** | 3–5 minutes | Standard benchmark execution |
 | **Extended** | 8–15 minutes | Longer performance characterization |
 
@@ -138,6 +138,7 @@ Or download one file at a time (right-click → Save link as):
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
 [get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
+Congratulations. You've executed your first workload!
 <br>
 
 ---
@@ -162,13 +163,17 @@ git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nv
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks  # NVIDIA+Ubuntu_26.04
 ```
 ---
-NOTE: Running the following command can take 75 minutes or more.
+NOTE 1: Initially running the following command will include running setup.sh and can take 75 minutes or more.
+
+NOTE 2: Running the following command a second time will take roughly 20 minutes.
 
 After downloading the bundle, run the smoke test for all 32 workloads:
 
 ```bash
 bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
 ```
+
+Congratulations. You've executed an entire bundle of 32 workloads!
 ---
 ### After the install
 
@@ -184,13 +189,12 @@ All commands run from `/opt/benchmarks`. Each command prints full usage with `--
 | Preview what would run | `bash run_benchmark_suite.sh --dry-run` |
 | Update to the newest release | `git pull && git submodule update --init --recursive` |
 
-- Swap the workload numbers for your platform (107 → 207, 307 or 407).
 - The suite's own logs go to `/opt/benchmarks/benchmark_suite_log/`, and the suite ends with a pass/fail summary.
 - Each workload run gets its own folder, `<workload>/results/raw/<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>/`, holding that run's `run.log`, raw output, parsed results, and system info.
 - Every run is also recorded as one line in the runtime ledger, `/var/opt/benchmarks/runtime_ledger.csv` (view it with `bash list_runs.sh`).
 - Inside `tmux`, detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`.
 
-For additional tools, reference the `Operator Tools` section above
+For additional tools, reference the [Operator Tools (collect results to your laptop)](#Operator-Tools) section above
 
 ---
 
@@ -227,8 +231,6 @@ Every one of the 128 repositories follows the same structure, so once you have r
     └── summary.json      # latest run summary
 ```
 
-Each run records its logs, raw output, and the workload's metrics to `results/raw/<run>`, and a row is appended to `/var/opt/benchmarks/runtime_ledger.csv`.
-
 ---
 
 ## How These Repositories Are Built
@@ -249,7 +251,7 @@ Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) 
 
 **What you need**
 
-- **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
+- **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 - **SSH key access to that server** as root.
 - **An AI coding agent:** Cursor, or another one such as Claude Code or GitHub Copilot.
 - **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash; the generator runs its commands in Git Bash.
@@ -302,3 +304,6 @@ Generating all 32 typically takes 90 minutes or longer. The agent works through 
 - **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`) and `batch_generation_manifest.json`, which lists each workload's result and generation time.
 
 To change what gets generated (parameters, metrics, success criteria), edit `ai-agent-gpu-benchmark-repo-generator/BenchmarkSpecDefinitions.xlsx` before you submit the prompt.
+
+Congratulations. You've created 32 workloads!
+
