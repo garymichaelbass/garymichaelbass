@@ -145,6 +145,8 @@ Or download one file at a time (right-click → Save link as):
 **Congratulations. You've executed your first workload!**`+
 
 <br>
+
+---
 ---
 ### Run a Full Test Suite (32 workloads)
 
@@ -181,13 +183,8 @@ bash run_benchmark_suite.sh --list        # every workload should say "ready"
 NOTE: Initially running the following command will include running setup.sh and can take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
 
 ```bash
-bash run_benchmark_suite.sh --smoke  # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
+bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
 ```
-
-The first run installs everything (ROCm or CUDA and each workload's software) and can take 75 minutes
-or more. **AMD machines may restart once** while installing ROCm: wait a few minutes, log back in, and
-run both commands above again; finished workloads are quick the second time. Later runs take about
-20 minutes.
 
 **Congratulations. You've run an entire bundle of 32 workloads!**
 
