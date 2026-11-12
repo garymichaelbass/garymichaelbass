@@ -99,7 +99,8 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 ### CHAPTER ONE: Run a Single Test (Example: Workload 107)
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
-NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the
+NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the file below.
+
 [BenchmarkSpecDefinitions.xlsx]
 (https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
 
