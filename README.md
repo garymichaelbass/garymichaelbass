@@ -145,19 +145,18 @@ Or download one file at a time (right-click → Save link as):
 **Congratulations. You've executed your first workload!**`+
 
 <br>
-
----
 ---
 ### Run a Full Test Suite (32 workloads)
 
-**1. Find your platform** (run on the GPU host):
+**1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
+
+<details>
+<summary>Not sure? Run this on the GPU host to print the bundle name</summary>
 
 ```bash
-. /etc/os-release && echo "Ubuntu $VERSION_ID"     # 24.04 or 26.04
-lspci | grep -iE 'vga|3d|display'                 # AMD or NVIDIA
+. /etc/os-release; lspci | grep -qi nvidia && v=nvidia || v=amd; echo "bundle-$v-ubuntu-${VERSION_ID/./}"
 ```
-
-**2. Pick the one bundle that matches:**
+</details>
 
 | Your machine | Bundle | Workloads |
 |---|---|---|
@@ -166,7 +165,7 @@ lspci | grep -iE 'vga|3d|display'                 # AMD or NVIDIA
 | AMD · Ubuntu 26.04 | `bundle-amd-ubuntu-2604` | 301–332 |
 | NVIDIA · Ubuntu 26.04 | `bundle-nvidia-ubuntu-2604` | 401–432 |
 
-**3. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
+**2. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
 
 ```bash
 apt-get update && apt-get install -y git tmux
@@ -178,17 +177,21 @@ bash run_benchmark_suite.sh --list        # every workload should say "ready"
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
 
-**4. Run the smoke test for all 32 workloads** (inside `tmux`, so a dropped connection doesn't stop it):
+**3. Run the smoke test for all 32 workloads** (inside `tmux`, so a dropped connection doesn't stop it):
 
 ```bash
 tmux new -s suite
-bash run_benchmark_suite.sh --smoke
+cd /opt/benchmarks && bash run_benchmark_suite.sh --smoke
 ```
 
+If your connection drops, log back in and run `tmux attach -t suite` to see it again.
+
 The first run installs everything (ROCm or CUDA and each workload's software) and can take 75 minutes
-or more; **AMD machines may restart once**, so log back in and run the same command again. Later runs
-take about 20 minutes.
-**Congratulations. You've executed an entire bundle of 32 workloads!**
+or more. **AMD machines may restart once** while installing ROCm: wait a few minutes, log back in, and
+run both commands above again; finished workloads are quick the second time. Later runs take about
+20 minutes.
+
+**Congratulations. You've run an entire bundle of 32 workloads!**
 
 <br>
 
