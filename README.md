@@ -100,7 +100,8 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
 NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the
-[Workload Repository Matrix](#-workload-repository-matrix) above, then clone it:
+[BenchmarkSpecDefinitions.xlsx]
+(https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
 
 ```bash
 apt install git -y
