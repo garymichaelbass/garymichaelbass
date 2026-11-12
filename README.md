@@ -101,8 +101,7 @@ Download, install, and run an individual benchmark repository (Workload 107 - AM
 
 NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the file below.
 
-[BenchmarkSpecDefinitions.xlsx]
-(https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
+[BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
 
 ```bash
 apt install git -y
