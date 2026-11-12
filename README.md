@@ -99,8 +99,8 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 ### Run a Single Test (Example: Workload 107)
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
-NOTE: Each workload is its own repository, named `<number>-<name>`. Find yours in the
-[Workload Repository Matrix](#-workload-repository-matrix) below, then clone it:
+NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the
+[Workload Repository Matrix](#-workload-repository-matrix) above, then clone it:
 
 ```bash
 apt install git -y
@@ -127,10 +127,11 @@ bash list_runs.sh                       # List every run on the server via `/var
 Download the tools with Git (Git Bash works on Windows; assumes SSH to VM on port 22):
 
 ```bash
-git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git
-cp gpu-bench-suite/* .                                 # Copy scripts to local directory
+git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git ~/gpu-bench-suite  
+cd ~/gpu-bench-suite                                  
+
 bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on remote server
-bash list_runs.sh --host <server-address>              # List every run on the server via remote `/var/opt/benchmarks/runtime_ledger.csv
+bash list_runs.sh --host <server-address>              # List every run on the remote server
 bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
 
@@ -147,34 +148,46 @@ Or download one file at a time (right-click → Save link as):
 
 ---
 ---
-### Run a Full Test Suite (Example: AMD+Ubuntu_24.04)
-NOTE: Use `git clone --recurse-submodules` exactly as shown. Because this is a bundle, each workload folder is a link to that workload's own repository. GitHub's **Download ZIP** does not follow those links, so it leaves the workload folders empty.
+### Run a Full Test Suite (32 workloads)
 
-Download a bundle of 32 workloads, install and run the full suite (Workloads 101 to 132 - AMD Ubuntu 24.04):
+**1. Find your platform** (run on the GPU host):
 
 ```bash
-apt install git -y
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
+. /etc/os-release && echo "Ubuntu $VERSION_ID"     # 24.04 or 26.04
+lspci | grep -iE 'vga|3d|display'                 # AMD or NVIDIA
+```
+
+**2. Pick the one bundle that matches:**
+
+| Your machine | Bundle | Workloads |
+|---|---|---|
+| AMD · Ubuntu 24.04 | `bundle-amd-ubuntu-2404` | 101–132 |
+| NVIDIA · Ubuntu 24.04 | `bundle-nvidia-ubuntu-2404` | 201–232 |
+| AMD · Ubuntu 26.04 | `bundle-amd-ubuntu-2604` | 301–332 |
+| NVIDIA · Ubuntu 26.04 | `bundle-nvidia-ubuntu-2604` | 401–432 |
+
+**3. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
+
+```bash
+apt-get update && apt-get install -y git tmux
+git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks
 cd /opt/benchmarks
-bash run_benchmark_suite.sh --list         # Every workload should show "ready"
+bash run_benchmark_suite.sh --list        # every workload should say "ready"
 ```
-### REFERENCE: git command for each bundle flavor (AMD+Ubuntu_24.04, AMD+Ubuntu_26.04, NVIDIA+Ubuntu_24.04, NVIDIA+Ubuntu_26.04):
+
+> Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
+> repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
+
+**4. Run the smoke test for all 32 workloads** (inside `tmux`, so a dropped connection doesn't stop it):
 
 ```bash
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks     # AMD+Ubuntu_24.04
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2604 /opt/benchmarks     # AMD+Ubuntu_26.04
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2404 /opt/benchmarks  # NVIDIA+Ubuntu_24.04
-git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-nvidia-ubuntu-2604 /opt/benchmarks  # NVIDIA+Ubuntu_26.04
-```
----
-NOTE: Initially running the following command will include running setup.sh and can take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
-
-After downloading the bundle, run the smoke test for all 32 workloads:
-
-```bash
-bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
+tmux new -s suite
+bash run_benchmark_suite.sh --smoke
 ```
 
+The first run installs everything (ROCm or CUDA and each workload's software) and can take 75 minutes
+or more; **AMD machines may restart once**, so log back in and run the same command again. Later runs
+take about 20 minutes.
 **Congratulations. You've executed an entire bundle of 32 workloads!**
 
 <br>
