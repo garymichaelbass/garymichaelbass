@@ -145,8 +145,9 @@ Or download one file at a time (right-click → Save link as):
 **Congratulations. You've executed your first workload!**`+
 
 <br>
----
 
+---
+---
 ### Run a Full Test Suite (32 workloads)
 
 **1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
