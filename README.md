@@ -69,7 +69,7 @@
 
 | Profile | Typical Runtime | Purpose |
 |---|---:|---|
-| **Smoke** | ≤ 1 minute | Installation and functionality validation (default), can be longer if setup.sh required first |
+| **Smoke** | ≤ 1 minute | Installation and functionality validation (default), initial run will be longer if setup.sh not yet run |
 | **Baseline** | 3–5 minutes | Standard benchmark execution |
 | **Extended** | 8–15 minutes | Longer performance characterization |
 
@@ -85,10 +85,10 @@ validation objectives, metrics, and execution parameters.
 ### System Requirements
 
 - **OS:** a server running Ubuntu 24.04 LTS or 26.04 LTS, with root or sudo access
-- **AMD:** one MI300X GPU (gfx942); `setup.sh` installs ROCm
-- **NVIDIA:** one H100 GPU (sm_90); `setup.sh` installs CUDA
+- **AMD:** one MI300X GPU (gfx942); `setup.sh` installs ROCm (10.1.0)
+- **NVIDIA:** one H100 GPU (sm_90); `setup.sh` installs CUDA (13.3)
 - **Host:** 20+ vCPUs, 128+ GB RAM, and about 500 GB of local disk
-- **Network:** Internet access for packages and model downloads
+- **Network:** Internet access for packages and model downloads (1 Gbit/s recommended; 250 Mbit/s minimum)
 
 No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 
@@ -103,8 +103,8 @@ Download, install, and run an individual benchmark repository (Workload 107 - AM
 apt install git -y
 git clone https://github.com/garys-gpu-benchmarks/107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404.git
 cd 107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404
-bash run_benchmark.sh --help   # shows help
-bash run_benchmark.sh --smoke  # performs install and run (smoke test)
+bash run_benchmark.sh --help   # Shows help
+bash run_benchmark.sh --smoke  # Performs initial setup then runs benchmark (smoke test)
 ```
 
 Inspect run results:
@@ -114,7 +114,7 @@ ls -a results/raw/*/*                   # List results directory
 cat results/raw/*/metrics_summary.txt   # Display metrics stored in file
 bash run_benchmark.sh --smoke           # Run the test a second time to generate additional results
 bash run_benchmark.sh --smoke           # Run the test a third time to generate additional results
-bash show_metrics.sh 107                # Show metrics for 107
+bash show_metrics.sh 107                # Show metrics for 107 (three passes)
 bash list_runs.sh                       # List every run on the server via `/var/opt/benchmarks/runtime_ledger.csv` 
 ```
 
@@ -125,7 +125,7 @@ Download the tools with Git (Git Bash works on Windows; assumes SSH to VM on por
 
 ```bash
 git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git
-cd gpu-bench-suite
+cp gpu-bench-suite/* .                                 # Copy scripts to local directory
 bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on remote server
 bash list_runs.sh --host <server-address>              # List every run on the server via remote `/var/opt/benchmarks/runtime_ledger.csv
 bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
@@ -138,7 +138,8 @@ Or download one file at a time (right-click → Save link as):
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
 [get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
-Congratulations. You've executed your first workload!
+**Congratulations. You've executed your first workload!**`+
+
 <br>
 
 ---
@@ -171,7 +172,7 @@ After downloading the bundle, run the smoke test for all 32 workloads:
 bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
 ```
 
-Congratulations. You've executed an entire bundle of 32 workloads!
+**Congratulations. You've executed an entire bundle of 32 workloads!**
 
 <br>
 
@@ -278,7 +279,23 @@ The generated repositories are written in `workspace/`, next to the generator fo
 
 In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
 
-**4. Submit the prompt**
+**4. AI coding agent**
+
+The generator is model-agnostic. Generation is driven by scripts and by written rules
+(`AGENTS.md`, `docs/AI_AGENT_INSTRUCTIONS.md`), so the agent launches and supervises
+the batch rather than writing benchmark code from scratch. Each agent below has
+generated a complete batch of 32 workload repositories that passed setup and smoke
+validation on real GPU hardware.
+
+| AI coding agent   | Used in           | Last validated batch      |
+|-------------------|-------------------|---------------------------|
+| Grok 4.7          | Cursor            | November 2026             |
+| Claude Sonnet 5.5 | Cursor            | November 2026             |
+| Claude Opus 5.5   | Claude / Cursor   | November 2026             |
+| GPT-5.6           | Cursor            | November 2026             |
+
+
+**5. Submit the prompt**
 
 Replace the key path and server address with your own, and keep the backquotes around the `ssh` command:
 
@@ -291,7 +308,7 @@ Remotely access Ubuntu VM with `ssh -i /path/to/.ssh/<your-key> root@<server-add
 - For another bundle, change the range and use a matching server: `201 through 232` (NVIDIA, Ubuntu 24.04), `301 through 332` (AMD, Ubuntu 26.04), or `401 through 432` (NVIDIA, Ubuntu 26.04).
 - To try a single workload first, use `Generate workload 107.`; lists such as `Generate workloads 107, 115.` also work.
 
-**5. Let it run**
+**6. Let it run**
 
 Generating all 32 typically takes 90 minutes or longer. The agent works through the workloads one at a time and keeps going until every one is done or recorded as failed. It runs on your computer, so keep the computer awake and online until it finishes.
 
@@ -304,5 +321,5 @@ Generating all 32 typically takes 90 minutes or longer. The agent works through 
 
 To change what gets generated (parameters, metrics, success criteria), edit `ai-agent-gpu-benchmark-repo-generator/BenchmarkSpecDefinitions.xlsx` before you submit the prompt.
 
-Congratulations. You've created 32 workloads!
+**Congratulations. You've created 32 workloads!**
 
