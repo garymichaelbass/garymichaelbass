@@ -172,6 +172,8 @@ Or download one file at a time (right-click → Save link as):
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
 
+NOTE: This uses `run_benchmark_suite.sh`, not `run_benchmark.sh`.
+
 ```bash
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks
 cd /opt/benchmarks
@@ -193,24 +195,31 @@ bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for 
 ---
 ### After the install
 
-All commands run from `/opt/benchmarks`. Each command prints full usage with `--help`. NOTE: This uses `run_benchmark_suite.sh`, not `run_benchmark.sh`.
+All commands run from `/opt/benchmarks`; each prints full usage with `--help`.
+For anything longer than a few minutes, start `tmux new -s bench` first, so a dropped connection doesn't stop the run.
 
 | Task | Command |
 |---|---|
+| Check every workload is ready | `bash run_benchmark_suite.sh --list` |
+| Preview what would run | `bash run_benchmark_suite.sh --dry-run --smoke` |
 | Smoke test every workload (installs each on first use) | `bash run_benchmark_suite.sh --smoke` |
 | Run one workload, baseline profile (example: 107) | `bash run_benchmark_suite.sh -w 107 --baseline` |
 | Run a range of workloads | `bash run_benchmark_suite.sh -w 101-110 --smoke` |
-| Run all three profiles (many hours) | `tmux new -s bench`, then `bash run_benchmark_suite.sh --smoke --baseline --extended` |
-| Execute a soak test: smoke profile, 20 times | `bash run_benchmark_suite.sh --smoke --repeat 20` |
-| Preview what would run | `bash run_benchmark_suite.sh --dry-run` |
+| Run all three profiles (many hours) | `bash run_benchmark_suite.sh --smoke --baseline --extended` |
+| Soak test: smoke profile, 20 times | `bash run_benchmark_suite.sh --smoke --repeat 20` |
+| List every run on this machine | `bash list_runs.sh` |
+| Show one workload's metrics (example: 107) | `bash show_metrics.sh 107` |
 | Update to the newest release | `git pull && git submodule update --init --recursive` |
 
-- The suite's own logs go to `/opt/benchmarks/benchmark_suite_log/`, and the suite ends with a pass/fail summary.
-- Each workload run gets its own folder, `<workload>/results/raw/<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>/`, holding that run's `run.log`, raw output, parsed results, and system info.
-- Every run is also recorded as one line in the runtime ledger, `/var/opt/benchmarks/runtime_ledger.csv` (view it with `bash list_runs.sh`).
-- Inside `tmux`, detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`.
+**Where the results go**
 
-For additional tools, reference the [Operator Tools (collect results to your laptop)](#Operator-Tools) section above
+- **Per workload:** `<workload>/results/RESULTS_ACTUAL.md` is a readable page with the latest run of each profile. Every run also keeps its own folder, `<workload>/results/raw/<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>/`, with the results summary (`metrics_summary.txt`), the full log (`run.log`), the raw results (`raw_results.csv`), the commands to replay the run (`commands_executed.sh`), and a snapshot of the hardware and software it ran on.
+- **Per machine:** every run is one line in the runtime ledger, `/var/opt/benchmarks/runtime_ledger.csv`, with status, setup and benchmark time, and metrics (`list_runs.sh` and `show_metrics.sh` read it).
+- **Per suite:** logs go to `/opt/benchmarks/benchmark_suite_log/`, and the suite ends with a pass/fail summary.
+
+**tmux:** detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`. An AMD restart during the first install ends the session; log back in and run the same command again.
+
+To copy results to your laptop, see [Operator Tools (collect results to your laptop)](#operator-tools-collect-results-to-your-laptop) above.
 
 ---
 
