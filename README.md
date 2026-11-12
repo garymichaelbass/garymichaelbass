@@ -96,7 +96,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 
 ---
 ---
-### STEP ONE: Run a Single Test (Example: Workload 107)
+### CHAPTER ONE: Run a Single Test (Example: Workload 107)
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
 NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the
@@ -148,7 +148,7 @@ Or download one file at a time (right-click → Save link as):
 
 ---
 ---
-### STEP TWO: Run a Full Test Suite (32 workloads)
+### CHAPTER TWO: Run a Full Test Suite (32 workloads)
 
 **1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
 
@@ -186,6 +186,24 @@ NOTE: Initially running the following command will include running setup.sh and 
 
 ```bash
 bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
+```
+
+**Remote VM: Inspect run results.**
+
+```bash
+bash show_metrics.sh 107                # Show metrics for 107
+bash list_runs.sh                       # List every run on the server via `/var/opt/benchmarks/runtime_ledger.csv` 
+```
+
+**Local laptop: Inspect run results and copy data.**
+
+```bash
+git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git ~/gpu-bench-suite  
+cd ~/gpu-bench-suite                                  
+
+bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on remote server
+bash list_runs.sh --host <server-address>              # List every run on the remote server
+bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
 
 **Congratulations. You've run an entire bundle of 32 workloads!**
@@ -269,7 +287,7 @@ scaffolding. The next section shows how to generate your own.
 <br>
 ---
 ---
-### STEP THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+### CHAPTER THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification Drive GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). An AI coding agent builds each repository on your computer, installs it on your GPU server, and runs its smoke test there before moving on to the next one.
 
 **What you need**
