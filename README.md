@@ -145,8 +145,6 @@ Or download one file at a time (right-click → Save link as):
 **Congratulations. You've executed your first workload!**`+
 
 <br>
-
----
 ---
 ### Run a Full Test Suite (32 workloads)
 
@@ -169,24 +167,21 @@ Or download one file at a time (right-click → Save link as):
 
 **2. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
 
+> Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
+> repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
+
 ```bash
-apt-get update && apt-get install -y git tmux
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks
 cd /opt/benchmarks
 bash run_benchmark_suite.sh --list        # every workload should say "ready"
 ```
 
-> Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
-> repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
-
-**3. Run the smoke test for all 32 workloads** (inside `tmux`, so a dropped connection doesn't stop it):
+**3. Run the smoke test for all 32 workloads**
 
 ```bash
-tmux new -s suite
-cd /opt/benchmarks && bash run_benchmark_suite.sh --smoke
+cd /opt/benchmarks
+bash run_benchmark_suite.sh --smoke
 ```
-
-If your connection drops, log back in and run `tmux attach -t suite` to see it again.
 
 The first run installs everything (ROCm or CUDA and each workload's software) and can take 75 minutes
 or more. **AMD machines may restart once** while installing ROCm: wait a few minutes, log back in, and
