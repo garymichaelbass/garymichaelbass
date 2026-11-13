@@ -96,7 +96,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 
 ---
 ---
-### CHAPTER ONE: Run a Single Test (Example: Workload 107)
+## CHAPTER ONE: Run a Single Test (Example: Workload 107)
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
 NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the `Repo Directory Name` column of the file below.
@@ -149,7 +149,7 @@ Or download one file at a time (right-click → Save link as):
 
 ---
 ---
-# CHAPTER TWO: Run a Full Test Suite (32 workloads)
+## CHAPTER TWO: Run a Full Test Suite (32 workloads)
 
 **1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
 
@@ -290,7 +290,7 @@ scaffolding. The next section shows how to generate your own.
 
 ---
 ---
-# CHAPTER THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+## CHAPTER THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification Drive GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). An AI coding agent builds each repository on your computer, installs it on your GPU server, and runs its smoke test there before moving on to the next one.
 
 **What you need**
