@@ -114,7 +114,7 @@ bash run_benchmark.sh --smoke  # Performs initial setup then runs benchmark (smo
 Inspect run results:
 
 ```bash
-ls -a results/raw/*/*                   # List results directory
+ls -las results/raw/*/*                   # List results directory
 cat results/raw/*/metrics_summary.txt   # Display metrics stored in file
 bash run_benchmark.sh --smoke           # Run the test a second time to generate additional results
 bash run_benchmark.sh --smoke           # Run the test a third time to generate additional results
@@ -149,7 +149,7 @@ Or download one file at a time (right-click → Save link as):
 
 ---
 ---
-### CHAPTER TWO: Run a Full Test Suite (32 workloads)
+# CHAPTER TWO: Run a Full Test Suite (32 workloads)
 
 **1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
 
@@ -183,7 +183,7 @@ bash run_benchmark_suite.sh --list        # every workload should say "ready"
 
 **3. Run the smoke test for all 32 workloads**
 
-NOTE: Initially running the following command will include running setup.sh and can take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
+NOTE: Initially running the following command will include running setup.sh, making the entire run take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
 
 ```bash
 bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
@@ -265,13 +265,13 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ├── setup.sh              # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
 ├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
 ├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
-├── list_runs.sh          # bash list_runs.sh --host <server-address>
+├── list_runs.sh          # bash list_runs.sh [--host <server-address>]: every run in the ledger
 ├── config/               # benchmark_config.yaml, hardware profiles
 ├── scripts/              # parse_results.py, validate_results.py, ...
 └── results/
-    ├── raw/              # per-run logs, metrics, artifacts
-    ├── parsed/           # SQLite + CSV
-    ├── benchmark.db      # all runs (SQLite)
+    ├── raw/              # one folder per run: logs, metrics, hardware/software inventory
+    ├── RESULTS_ACTUAL.md # latest run of each profile, readable
+    ├── benchmark.db      # latest run (SQLite)
     └── summary.json      # latest run summary
 ```
 
@@ -285,10 +285,12 @@ a spec-driven framework that turns one row of a workload spreadsheet into a
 complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
 CI workflows, parsing/validation logic, and a smoke test, with zero manual
 scaffolding. The next section shows how to generate your own.
+
 <br>
+
 ---
 ---
-### CHAPTER THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+# CHAPTER THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification Drive GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). An AI coding agent builds each repository on your computer, installs it on your GPU server, and runs its smoke test there before moving on to the next one.
 
 **What you need**
