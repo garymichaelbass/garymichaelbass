@@ -1,4 +1,4 @@
-# GPU Benchmark & Platform Validation Workloads<br><sub>*From running to scaling to generating, on AMD and NVIDIA GPUs*</sub>
+# GPU Benchmark & Platform Validation Workloads<br><sub>*Run a single test, run a full suite, generate your own, on AMD and NVIDIA GPUs*</sub>
 
 - A standardized collection of 32 hardware, compute, and AI inference validation workloads.
 - Run on AMD (ROCm) and NVIDIA (CUDA) accelerators under Ubuntu 24.04 LTS and Ubuntu 26.04 LTS.
