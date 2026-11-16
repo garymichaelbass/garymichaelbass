@@ -198,7 +198,8 @@ Or download one file at a time (right-click → Save link as):
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
 
-NOTE: This uses `run_benchmark_suite.sh`, not `run_benchmark.sh`.
+> [!IMPORTANT]
+> A bundle uses `run_benchmark_suite.sh` (all 32 workloads), not `run_benchmark.sh` (one workload, as in Chapter Two).
 
 ```bash
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks
