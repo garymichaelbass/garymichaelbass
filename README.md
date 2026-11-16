@@ -168,7 +168,7 @@ Or download one file at a time (right-click → Save link as):
 - The first run is longer (calls `run_setup.sh`) with subsequent runs being shorter
 - Results, logs, and metrics are stored automatically for each run in `results/raw`
 - `show_metrics.sh` (one workload) and `list_runs.sh` (all runs) work on the server or your laptop
-- Rerun to add passes, then compare them with `show_metrics.sh 107`
+- Each run gets its own folder: `<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>`
 
 <br>
 
