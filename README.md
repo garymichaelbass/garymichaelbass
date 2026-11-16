@@ -165,10 +165,10 @@ Or download one file at a time (right-click → Save link as):
 
 - Every workload is packaged as a standalone benchmark repository
 - Clone any single repo, then run `bash run_benchmark.sh --smoke`
-- The first run calls `setup.sh` to install ROCm/CUDA; subsequent runs are faster
+- The first run is longer (calls `run_setup.sh`) with subsequent runs being shorter
 - Results, logs, and metrics are stored automatically for each run in `results/raw`
 - `show_metrics.sh` (one workload) and `list_runs.sh` (all runs) work on the server or your laptop
-- Copy results, logs, and the runtime ledger with `get_benchmark_results.sh`
+- Rerun to add passes, then compare them with `show_metrics.sh 107`
 
 <br>
 
@@ -418,3 +418,33 @@ To change what gets generated (parameters, metrics, success criteria), edit `ai-
 - One prompt: `AI_AGENT_INSTRUCTIONS.md`, a workload range, and your `ssh` command
 - In about 90+ minutes, 32 repos are generated, installed, and validated on your GPU VM
 - Self-contained, relocatable, ready-to-use repos land in `~/gpu-bench/workspace`
+
+<br>
+
+---
+---
+## 🏁 Final Takeaways
+*You've completed the full journey*
+
+- 32 workloads × 4 bundles = 128 repos for AMD and NVIDIA on Ubuntu 24.04 and 26.04
+- Self-contained, ready-to-use repos share a consistent layout and execution model
+- Run one workload with `bash run_benchmark.sh --smoke`; first run includes setup
+- Run all 32 with `bash run_benchmark_suite.sh --smoke` from `/opt/benchmarks`
+- Use Smoke for quick checks, Baseline for standard runs, and Extended for depth
+- Every run is logged: `results/raw` per workload, runtime ledger per machine
+- `show_metrics.sh`, `list_runs.sh`, and `get_benchmark_results.sh` work from your laptop
+- `BenchmarkSpecDefinitions.xlsx` is the blueprint: one row becomes one repository
+- One prompt to an AI coding agent generates, installs, and validates your own 32
+
+
+---
+## 🔗 Links & Commands
+*References from the Video*
+
+- **Main README:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
+- **Workloads & bundles:** [github.com/garys-gpu-benchmarks](https://github.com/garys-gpu-benchmarks)
+- **Operator tools:** [github.com/garys-gpu-benchmarks/gpu-bench-suite](https://github.com/garys-gpu-benchmarks/gpu-bench-suite)
+- **Repo generator:** [github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)
+- **Clone a bundle:** `git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-<gpu>-ubuntu-<ver> /opt/benchmarks`
+- **Spec workbook:** [BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
+- Passing the AMD ROCm Exam at AMD Dev Day gets you a free T-shirt!
