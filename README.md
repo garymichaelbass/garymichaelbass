@@ -2,6 +2,8 @@
 
 **LINK:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
+---
+
 ## CHAPTER ONE: Tour the Architecture
 
 - A standardized collection of 32 hardware, compute, and AI inference validation workloads.
