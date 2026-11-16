@@ -131,7 +131,7 @@ bash run_benchmark.sh --smoke  # Performs initial setup then runs benchmark (smo
 Inspect run results:
 
 ```bash
-ls -las results/raw/*/*                   # List results directory
+ls -a results/raw/*/*                   # List results directory
 cat results/raw/*/metrics_summary.txt   # Display metrics stored in file
 bash run_benchmark.sh --smoke           # Run the test a second time to generate additional results
 bash run_benchmark.sh --smoke           # Run the test a third time to generate additional results
@@ -150,7 +150,6 @@ cd ~/gpu-bench-suite
 
 bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on remote server
 bash list_runs.sh --host <server-address>              # List every run on the remote server
-bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
 
 Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in that folder to update the tools.
@@ -158,7 +157,6 @@ Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in th
 Or download one file at a time (right-click → Save link as):
 [show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
-[get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
 **Congratulations. You've executed your first workload!**
 
@@ -233,6 +231,13 @@ bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on
 bash list_runs.sh --host <server-address>              # List every run on the remote server
 bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
+Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in that folder to update the tools.
+
+Or download one file at a time (right-click → Save link as):
+[show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
+[list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
+[get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
+
 
 **Congratulations. You've run an entire bundle of 32 workloads!**
 
