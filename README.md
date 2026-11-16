@@ -99,6 +99,16 @@ validation objectives, metrics, and execution parameters.
 
 No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 
+---
+### ✅ Chapter One Takeaways
+
+- 32 standardized workloads × 4 platform bundles = 128 repositories
+- Run on AMD ROCm or NVIDIA CUDA with Ubuntu 24.04 LTS or 26.04 LTS
+- The collection covers system, memory, compute, AI, LLM, and end-to-end tests
+- Three run profiles: Smoke (≤ 1 min), Baseline (3–5 min), Extended (8–15 min)
+- `BenchmarkSpecDefinitions.xlsx` defines specs, metrics, and execution rules
+- Requires one MI300X or H100 server: 20+ vCPUs, 128+ GB RAM, about 500 GB of disk
+
 <br>
 
 ---
@@ -150,7 +160,17 @@ Or download one file at a time (right-click → Save link as):
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
 [get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
-**Congratulations. You've executed your first workload!**`+
+**Congratulations. You've executed your first workload!**
+
+---
+### ✅ Chapter Two Takeaways
+
+- Every workload is packaged as a standalone benchmark repository
+- Clone any single repo, then run `bash run_benchmark.sh --smoke`
+- The first run calls `setup.sh` to install ROCm/CUDA; subsequent runs are faster
+- Results, logs, and metrics are stored automatically for each run in `results/raw`
+- `show_metrics.sh` (one workload) and `list_runs.sh` (all runs) work on the server or your laptop
+- Copy results, logs, and the runtime ledger with `get_benchmark_results.sh`
 
 <br>
 
@@ -293,6 +313,16 @@ complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
 CI workflows, parsing/validation logic, and a smoke test, with zero manual
 scaffolding. The next section shows how to generate your own.
 
+---
+### ✅ Chapter Three Takeaways
+
+- Clone the matching bundle with `git clone --recurse-submodules` (not Download ZIP)
+- After cloning, all 32 repositories reside in `/opt/benchmarks`
+- Install, execute, and validate all 32 workloads with `bash run_benchmark_suite.sh --smoke`
+- The first smoke run (includes setup) is the longest; subsequent runs are shorter
+- The runtime ledger (`runtime_ledger.csv`) tracks benchmark history across the entire system
+- Results are kept per workload, per machine (ledger), and per suite (pass/fail)
+
 <br>
 
 ---
@@ -374,3 +404,12 @@ To change what gets generated (parameters, metrics, success criteria), edit `ai-
 
 **Congratulations. You've created 32 workloads!**
 
+---
+### ✅ Chapter Four Takeaways
+
+- Every repo is generated from one row of `BenchmarkSpecDefinitions.xlsx`
+- Set up a GPU VM with an SSH key; set up your PC with Git, Python 3.12+, and an AI agent
+- Create `~/gpu-bench/workspace`, clone the generator, install dependencies, open the workspace
+- One prompt: `AI_AGENT_INSTRUCTIONS.md`, a workload range, and your `ssh` command
+- In about 90+ minutes, 32 repos are generated, installed, and validated on your GPU VM
+- Self-contained, relocatable, ready-to-use repos land in `~/gpu-bench/workspace`
