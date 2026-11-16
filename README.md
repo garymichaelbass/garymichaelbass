@@ -1,15 +1,6 @@
 # GPU Benchmark & Platform Validation Workloads<br><sub>*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*</sub>
 
-
-<br>
-# GPU Benchmark & Platform Validation Workloads
-*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*
-
-**This README:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
-
----
-
-**Link:** [github.com/GaryMichaelBass/GaryMichaelBass/README.md](https://github.com/GaryMichaelBass/GaryMichaelBass)
+**LINK:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
 ---
 ---
