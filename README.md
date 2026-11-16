@@ -447,4 +447,4 @@ To change what gets generated (parameters, metrics, success criteria), edit `ai-
 - **Repo generator:** [github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)
 - **Clone a bundle:** `git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-<gpu>-ubuntu-<ver> /opt/benchmarks`
 - **Spec workbook:** [BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
-- Passing the AMD ROCm Exam at AMD Dev Day gets you a free T-shirt!
+- **Swag:** Passing the AMD ROCm Exam at AMD Dev Day gets you a free T-shirt!
