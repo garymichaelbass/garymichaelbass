@@ -31,7 +31,6 @@
 </a>
 
 ---
-
 ## 📊 Workload Repository Matrix
 
 | Workload Description | AMD&nbsp;/&nbsp;24.04 | NVIDIA&nbsp;/&nbsp;24.04 | AMD&nbsp;/&nbsp;26.04 | NVIDIA&nbsp;/&nbsp;26.04 |
@@ -70,9 +69,7 @@
 | **End&#8209;to&#8209;End&nbsp;FAISS&nbsp;RAG&nbsp;Pipeline** | [132](https://github.com/garys-gpu-benchmarks/132-gpu-bench-amd-rag-faiss-end2end-ubu2404) | [232](https://github.com/garys-gpu-benchmarks/232-gpu-bench-nvidia-rag-faiss-end2end-ubu2404) | [332](https://github.com/garys-gpu-benchmarks/332-gpu-bench-amd-rag-faiss-end2end-ubu2604) | [432](https://github.com/garys-gpu-benchmarks/432-gpu-bench-nvidia-rag-faiss-end2end-ubu2604) |
 
 ---
-
-
-## Execution Mode
+### Execution Mode
 
 | Profile | Typical Runtime | Purpose |
 |---|---:|---|
