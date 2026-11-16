@@ -89,8 +89,7 @@ Download and open the Excel workbook to review workload definitions,
 validation objectives, metrics, and execution parameters.
 
 ---
-
-## Benchmark Categories
+### Benchmark Categories
 
 The workload suites cover seven primary areas:
 
