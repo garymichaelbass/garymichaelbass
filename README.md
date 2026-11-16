@@ -1,5 +1,20 @@
 # GPU Benchmark & Platform Validation Workloads<br><sub>*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*</sub>
 
+
+<br>
+# GPU Benchmark & Platform Validation Workloads
+*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*
+
+**This README:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
+
+---
+
+**Link:** [github.com/GaryMichaelBass/GaryMichaelBass/README.md](https://github.com/GaryMichaelBass/GaryMichaelBass)
+
+---
+---
+## CHAPTER ONE: Tour the Architecture
+
 - A standardized collection of 32 hardware, compute, and AI inference validation workloads.
 - Supports ROCm and CUDA under Ubuntu 24.04 LTS and 26.04 LTS.
 - Four platform bundles (AMD/24.04, AMD/26.04, NVIDIA/24.04, NVIDIA/26.04) yielding 128 workload repositories.
@@ -97,7 +112,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 
 ---
 ---
-## CHAPTER ONE: Run a Single Test (Example: Workload 107)
+## CHAPTER TWO: Run a Single Test (Example: Workload 107)
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
 NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the `Repo Directory Name` column of the file below.
@@ -150,7 +165,7 @@ Or download one file at a time (right-click → Save link as):
 
 ---
 ---
-## CHAPTER TWO: Run a Full Test Suite (32 workloads)
+## CHAPTER THREE: Run a Full Test Suite (32 workloads)
 
 **1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
 
@@ -291,7 +306,7 @@ scaffolding. The next section shows how to generate your own.
 
 ---
 ---
-## CHAPTER THREE: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification Drive GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). An AI coding agent builds each repository on your computer, installs it on your GPU server, and runs its smoke test there before moving on to the next one.
 
 **What you need**
