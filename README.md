@@ -89,6 +89,20 @@ Download and open the Excel workbook to review workload definitions,
 validation objectives, metrics, and execution parameters.
 
 ---
+
+## Benchmark Categories
+
+The workload suites cover seven primary areas:
+
+- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
+- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
+- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
+- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
+- **System Validation & Reliability** — correctness testing and hardware/software health validation
+- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
+- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
+
+---
 ### System Requirements
 
 - **OS:** a server running Ubuntu 24.04 LTS or 26.04 LTS, with root or sudo access
@@ -198,8 +212,7 @@ Or download one file at a time (right-click → Save link as):
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
 
-> [!IMPORTANT]
-> A bundle uses `run_benchmark_suite.sh` (all 32 workloads), not `run_benchmark.sh` (one workload, as in Chapter Two).
+NOTE: This uses `run_benchmark_suite.sh`, not `run_benchmark.sh`.
 
 ```bash
 git clone --recurse-submodules https://github.com/garys-gpu-benchmarks/bundle-amd-ubuntu-2404 /opt/benchmarks
@@ -275,20 +288,6 @@ To copy results to your laptop, see [Operator Tools (collect results to your lap
 
 ---
 
-## Benchmark Categories
-
-The workload suites cover seven primary areas:
-
-- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
-- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
-- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
-- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
-- **System Validation & Reliability** — correctness testing and hardware/software health validation
-- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
-- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
-
----
-
 ## Repository Layout & Execution Model
 
 Every one of the 128 repositories follows the same structure, so once you have run one, you know how to run all of them:
@@ -326,7 +325,7 @@ scaffolding. The next section shows how to generate your own.
 - After cloning, all 32 repositories reside in `/opt/benchmarks`
 - Install, execute, and validate all 32 workloads with `bash run_benchmark_suite.sh --smoke`
 - The first smoke run (includes setup) is the longest; subsequent runs are shorter
-- The runtime ledger (`runtime_ledger.csv`) tracks benchmark history across the entire system
+- The runtime ledger (`runtime_ledger.csv`) tracks benchmark run history across the entire system
 - Results are kept per workload, per machine (ledger), and per suite (pass/fail)
 
 <br>
