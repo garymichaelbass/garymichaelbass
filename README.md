@@ -73,7 +73,7 @@
 
 | Profile | Typical Runtime | Purpose |
 |---|---:|---|
-| **Smoke** | ≤ 1 minute | Installation and functionality validation (default), initial run will be longer if setup.sh not yet run |
+| **Smoke** | ≤ 1 minute | Installation and functionality validation (default), initial run will be longer if run_setup.sh not yet run |
 | **Baseline** | 3–5 minutes | Standard benchmark execution |
 | **Extended** | 8–15 minutes | Longer performance characterization |
 
@@ -102,8 +102,8 @@ The workload suites cover seven primary areas:
 ### System Requirements
 
 - **OS:** a server running Ubuntu 24.04 LTS or 26.04 LTS, with root or sudo access
-- **AMD:** one MI300X GPU (gfx942); `setup.sh` installs ROCm (10.1.0)
-- **NVIDIA:** one H100 GPU (sm_90); `setup.sh` installs CUDA (13.3)
+- **AMD:** one MI300X GPU (gfx942); `run_setup.sh` installs ROCm (10.1.0)
+- **NVIDIA:** one H100 GPU (sm_90); `run_setup.sh` installs CUDA (13.3)
 - **Host:** 20+ vCPUs, 128+ GB RAM, and about 500 GB of local disk
 - **Network:** Internet access for packages and model downloads (1 Gbit/s recommended; 250 Mbit/s minimum)
 
@@ -218,7 +218,7 @@ bash run_benchmark_suite.sh --list        # every workload should say "ready"
 
 **3. Run the smoke test for all 32 workloads**
 
-NOTE: Initially running the following command will include running setup.sh, making the entire run take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
+NOTE: Initially running the following command will include running run_setup.sh, making the entire run take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
 
 ```bash
 bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
@@ -250,7 +250,6 @@ Or download one file at a time (right-click → Save link as):
 
 
 **Congratulations. You've run an entire bundle of 32 workloads!**
-
 <br>
 
 ---
@@ -290,7 +289,7 @@ Every one of the 128 repositories follows the same structure, so once you have r
 
 ```text
 <NNN>-<repo>/
-├── setup.sh              # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
+├── run_setup.sh          # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
 ├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
 ├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
 ├── list_runs.sh          # bash list_runs.sh [--host <server-address>]: every run in the ledger
@@ -309,7 +308,7 @@ Every one of the 128 repositories follows the same structure, so once you have r
 
 Every repository in this matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
-a spec-driven framework that turns one row of a workload spreadsheet into a
+a spec-driven framework (`BenchmarkSpecDefinitions.xlsx`) that turns one row of a workload spreadsheet into a
 complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
 CI workflows, parsing/validation logic, and a smoke test, with zero manual
 scaffolding. The next section shows how to generate your own.
