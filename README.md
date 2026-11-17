@@ -358,8 +358,15 @@ You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads
 
 - **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 - **SSH key access to the GPU server** as root.
-- **An AI coding editor and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model such as those listed in step 4.
 - **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash; the generator runs its commands in Git Bash.
+- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model such as those listed below.
+
+| AI coding agent   | Model             | Last validated batch      |
+|-------------------|-------------------|---------------------------|
+| Cursor            | Grok 4.7          | November 2026             |
+| Cursor            | Claude Sonnet 5.5 | November 2026             |
+| Cursor            | Claude Opus 5.5   | November 2026             |  
+| Cursor            | GPT-5.6           | November 2026             |
 
 **1. Check that you can log in to the server**
 
@@ -384,21 +391,13 @@ The generated repositories are written in `workspace/`, next to the generator fo
 
 In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
 
-**4. AI coding egent**
+**4. AI coding agent and model**
 
 The generator is model-agnostic. Generation is driven by scripts and by written rules
 (`AGENTS.md`, `docs/AI_AGENT_INSTRUCTIONS.md`), so the agent launches and supervises
 the batch rather than writing benchmark code from scratch. Each editor and model below has
 generated a complete batch of 32 workload repositories that passed setup and smoke
 validation on real GPU hardware.
-
-| AI coding editor  | Model             | Last validated batch      |
-|-------------------|-------------------|---------------------------|
-| Cursor            | Grok 4.7          | November 2026             |
-| Cursor            | Claude Sonnet 5.5 | November 2026             |
-| Cursor            | Claude Opus 5.5   | November 2026             |  
-| Cursor            | GPT-5.6           | November 2026             |
-
 
 
 **5. Submit the prompt**
