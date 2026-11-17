@@ -156,6 +156,9 @@ bash list_runs.sh                       # List every run on the server via `/var
 Each execution of run_benchmark.sh adds a row to the runtime ledger 
 which includes (but is not limited to) the following columns.
 
+`hostname`, `os_version`, `kernel_version`, `gpu_driver_version`, `gpu_name`
+
+
 | Runtime Ledger Columns |
 |---|
 | `hostname` |
