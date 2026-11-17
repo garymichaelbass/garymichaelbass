@@ -156,41 +156,8 @@ bash list_runs.sh                       # List every run on the server via `/var
 Each execution of run_benchmark.sh adds a row to the runtime ledger 
 which includes (but is not limited to) the following columns.
 
-`hostname`, `os_version`, `kernel_version`, `gpu_driver_version`, `gpu_name`
+`hostname`, `os_version`, `kernel_version`, `gpu_driver_version`, `gpu_name`, `gpu_vram`, `gpu_count`, `cpu_model`, `network_download_mb_s`, `workload_number`, `run_benchmark_command_submitted`, `run_benchmark_command_fully_resolved`, `benchmark_profile` (smoke, baseline, extended), `Parameter_01_Name`, `Parameter_01_Value` … `Parameter_15_Name`, `Parameter_15_Value`, `result_status`, `exit_code`, `failure_detail`, `start_script_datetime`, `runtime_script_mm_ss`, `runtime_setup_mm_ss`, `runtime_benchmark_mm_ss`, `metric_1_def`, `metric_1_result` … `metric_7_def`, `metric_7_result`
 
-
-| Runtime Ledger Columns |
-|---|
-| `hostname` |
-| `os_version` |
-| `kernel_version` |
-| `gpu_driver_version` |
-| `gpu_name` |
-| `gpu_vram` |
-| `gpu_count` |
-| `cpu_model` |
-| `network_download_mb_s` |
-| `workload_number` |
-| `run_benchmark_command_submitted` |
-| `run_benchmark_command_fully_resolved` |
-| `benchmark_profile` (smoke, baseline, extended) |
-| `Parameter_01_Name` |
-| `Parameter_01_Value` |
-| ⋮ |
-| `Parameter_15_Name` |
-| `Parameter_15_Value` |
-| `result_status` |
-| `exit_code` |
-| `failure_detail` |
-| `start_script_datetime` |
-| `runtime_script_mm_ss` |
-| `runtime_setup_mm_ss` |
-| `runtime_benchmark_mm_ss` |
-| `metric_1_def` |
-| `metric_1_result` |
-| ⋮ |
-| `metric_7_def` |
-| `metric_7_result` |
 
 ---
 ### Operator Tools (collect results to your laptop)
