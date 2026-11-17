@@ -156,8 +156,9 @@ bash list_runs.sh                       # List every run on the server via `/var
 Each execution of run_benchmark.sh adds a row to the runtime ledger 
 which includes (but is not limited to) the following columns.
 
-- **System:** `hostname`, `os_version`, `kernel_version`, `gpu_driver_version`, `gpu_name`, `gpu_vram`, `gpu_count`, `cpu_model`, `network_download_mb_s`
-- **Command:** `workload_number`, `run_benchmark_command_submitted`, `run_benchmark_command_fully_resolved`, `benchmark_profile` (smoke, baseline, extended)
+- **System:** `hostname`, `os_version`, `kernel_version`, `cpu_model`, `network_download_mb_s`
+- **GPU:** `gpu_driver_version`, `gpu_name`, `gpu_vram`, `gpu_count`
+- **Command:** `run_benchmark_command_submitted`, `run_benchmark_command_fully_resolved`, `benchmark_profile` (smoke, baseline, extended)
 - **Parameters:** `Parameter_01_Name`, `Parameter_01_Value` … `Parameter_15_Name`, `Parameter_15_Value`
 - **Status:** `result_status`, `exit_code`, `failure_detail`
 - **Timing:** `start_script_datetime`, `runtime_script_mm_ss`, `runtime_setup_mm_ss`, `runtime_benchmark_mm_ss`
