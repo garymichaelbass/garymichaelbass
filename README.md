@@ -126,7 +126,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 ## CHAPTER TWO: Run a Single Test (Example: Workload 107)
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
-NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in the `Repo Directory Name` column of the file below.
+NOTE: Each workload is its own repository named `<workload_number>-<repo_base_name>`. Find yours in the `Repo Directory Name` column of the file below.
 
 [BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
 
@@ -142,18 +142,17 @@ bash run_benchmark.sh --smoke  # Performs initial setup then runs benchmark (smo
 Inspect run results:
 
 ```bash
-ls -a results/raw/*/*                   # List results directory
-cat results/raw/*/metrics_summary.txt   # Display metrics stored in file
-bash run_benchmark.sh --smoke           # Run the test a second time to generate additional results
-bash run_benchmark.sh --smoke           # Run the test a third time to generate additional results
-bash show_metrics.sh 107                # Show metrics for 107 (three passes)
-bash list_runs.sh                       # List every run on the server via `/var/opt/benchmarks/runtime_ledger.csv` 
+ls -a results/raw/*/*                     # List results directory
+cat results/raw/*/metrics_summary.txt     # Display metrics stored in file
+bash run_benchmark.sh --smoke --repeat 2  # Run the test two more times to generate additional results
+bash show_metrics.sh 107                  # Show metrics for 107 (three passes)
+bash list_runs.sh                         # List every run on the server via `/var/opt/benchmarks/runtime_ledger.csv` 
 ```
 
 ---
 ### Runtime Ledger (/var/opt/benchmarks/runtime_ledger.csv)
 
-Each execution of run_benchmark.sh adds a row to the runtime ledger 
+Each execution of run_benchmark.sh adds a row to the runtime ledger file
 which includes (but is not limited to) the following columns.
 
 - **System:** `hostname`, `os_version`, `kernel_version`, `cpu_model`, `network_download_mb_s`
@@ -187,7 +186,7 @@ Or download one file at a time (right-click → Save link as):
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
 [get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
-On your local laptop, the runtime ledger file is saved as a CSV file and as an XLSX file.
+On your local laptop, the runtime ledger file is saved as a CSV file and as an Excel (*.xlsx) file.
 
 
 **Congratulations. You've executed your first workload!**
@@ -196,11 +195,12 @@ On your local laptop, the runtime ledger file is saved as a CSV file and as an X
 ### ✅ Chapter Two Takeaways
 
 - Every workload is packaged as a standalone benchmark repository
-- Clone any single repo, then run `bash run_benchmark.sh --smoke`
-- The first run is longer (calls `run_setup.sh`) with subsequent runs being shorter
+- Clone any single repo, then execute `bash run_benchmark.sh --smoke`
+- The first benchmark run is longest (calls `run_setup.sh`) with subsequent runs being shorter
 - Results, logs, and metrics are stored automatically for each run in `results/raw`
-- `show_metrics.sh` (one workload) and `list_runs.sh` (all runs) work on the server or your laptop
 - Each run gets its own folder: `<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>`
+- `show_metrics.sh` (one workload) and `list_runs.sh` (all runs) work on the server or your laptop
+
 
 <br>
 
@@ -240,10 +240,10 @@ bash run_benchmark_suite.sh --list        # every workload should say "ready"
 
 **3. Run the smoke test for all 32 workloads**
 
-NOTE: Initially running the following command will include running run_setup.sh, making the entire run take 75 minutes or more. Running the following command a second time will take roughly 20 minutes.
+NOTE: Initially running the following command will include executing run_setup.sh, making the entire run take 90 minutes or more. Running the following command a second time will take roughly 25 minutes.
 
 ```bash
-bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 75 minutes or more)
+bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 90 minutes or more)
 ```
 
 **Remote VM: Inspect run results.**
@@ -325,7 +325,23 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ```
 
 ---
-## How These Repositories Are Built
+### ✅ Chapter Three Takeaways
+
+- Clone the matching bundle with `git clone --recurse-submodules` (not Download ZIP)
+- After cloning, all 32 repositories reside in `/opt/benchmarks`
+- Install, execute, and validate all 32 workloads with `bash run_benchmark_suite.sh --smoke`
+- First smoke run (includes `run_setup.sh`setup) is longest with subsequent runs being shorter
+- Runtime ledger (`runtime_ledger.csv`) tracks benchmark run history across the entire system
+- Results are kept per workload, per machine (ledger), and per run_benchmark_suite (pass/fail)
+
+<br>
+
+---
+---
+## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+
+---
+### How These Repositories Are Built
 
 Every repository in this matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
@@ -335,20 +351,8 @@ CI workflows, parsing/validation logic, and a smoke test, with zero manual
 scaffolding. The next section shows how to generate your own.
 
 ---
-### ✅ Chapter Three Takeaways
+### Repository Creation
 
-- Clone the matching bundle with `git clone --recurse-submodules` (not Download ZIP)
-- After cloning, all 32 repositories reside in `/opt/benchmarks`
-- Install, execute, and validate all 32 workloads with `bash run_benchmark_suite.sh --smoke`
-- The first smoke run (includes setup) is the longest; subsequent runs are shorter
-- The runtime ledger (`runtime_ledger.csv`) tracks benchmark run history across the entire system
-- Results are kept per workload, per machine (ledger), and per suite (pass/fail)
-
-<br>
-
----
----
-## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next one. Each repository is built fairly quickly, with most of the time spent on the server installing and testing it.
 
 **What you need**
