@@ -1,6 +1,6 @@
 # GPU Benchmark & Platform Validation Workloads<br><sub>*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*</sub>
 
-### **LINK:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
+### **This page:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
 ---
 
@@ -73,7 +73,7 @@
 
 | Profile | Typical Runtime | Purpose |
 |---|---:|---|
-| **Smoke** | ≤ 1 minute | Installation and functionality validation (default), initial run will be longer if run_setup.sh not yet run |
+| **Smoke** | ≤ 1 minute | Checks the install and that the workload runs (default). The first run also installs, so it takes longer |
 | **Baseline** | 3–5 minutes | Standard benchmark execution |
 | **Extended** | 8–15 minutes | Longer performance characterization |
 
@@ -158,7 +158,7 @@ which includes (but is not limited to) the following columns.
 - **System:** `hostname`, `os_version`, `kernel_version`, `cpu_model`, `network_download_mb_s`
 - **GPU:** `gpu_driver_version`, `gpu_name`, `gpu_vram`, `gpu_count`
 - **Command:** `run_benchmark_command_submitted`, `run_benchmark_command_fully_resolved`, `benchmark_profile`
-- **Parameters:** `Parameter_01_Name`, `Parameter_01_Value` … `Parameter_15_Name`, `Parameter_15_Value`
+- **Parameters:** `Parameter_01_Name`, `Parameter_01_Value` … `Parameter_20_Name`, `Parameter_20_Value`
 - **Timing:** `start_script_datetime`, `runtime_script_mm_ss`, `runtime_setup_mm_ss`, `runtime_benchmark_mm_ss`
 - **Metrics:** `metric_1_def`, `metric_1_result` … `metric_7_def`, `metric_7_result`
 - **Status:** `result_status`, `exit_code`, `failure_detail`
@@ -179,7 +179,7 @@ bash list_runs.sh --host <server-address>              # List every run on the r
 bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
 
-Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in that folder to update the tools.
+Add `--port N` if SSH is not on port 22 (e.g., on Runpod). Run `git pull` in that folder to update the tools.
 
 Or download one file at a time (right-click → Save link as):
 [show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
@@ -208,7 +208,7 @@ On your local laptop, the runtime ledger file is saved as a CSV file and as an E
 ---
 ## CHAPTER THREE: Run a Full Test Suite (32 workloads)
 
-**1. Pick the bundle for your machine** (you chose the GPU and Ubuntu version when you created it).
+**1. Pick the bundle for your machine** (it must match the server's GPU and Ubuntu version).
 
 <details>
 <summary>Not sure? Run this on the GPU host to print the bundle name</summary>
@@ -240,10 +240,12 @@ bash run_benchmark_suite.sh --list        # every workload should say "ready"
 
 **3. Run the smoke test for all 32 workloads**
 
-NOTE: Initially running the following command will include executing run_setup.sh, making the entire run take 90 minutes or more. Running the following command a second time will take roughly 25 minutes.
+NOTE: The first run also installs every workload (`run_setup.sh`), so it can take 90 minutes or more. Running the command a second time takes roughly 25 minutes.
+
+NOTE: On a fresh AMD server, the first workload may restart the server once to load the GPU driver, which closes your SSH session. Log back in after a few minutes and run the same command again; workloads already installed are not installed again.
 
 ```bash
-bash run_benchmark_suite.sh --smoke   # Performs install and run smoke test for all 32 workloads (can take 90 minutes or more)
+bash run_benchmark_suite.sh --smoke   # Installs and smoke-tests all 32 workloads (roughly 90 minutes on the first run)
 ```
 
 **Remote VM: Inspect run results.**
@@ -255,6 +257,9 @@ bash list_runs.sh                       # List every run on the server via `/var
 
 **Local laptop: Inspect run results and copy data.**
 
+Use the operator tools from Chapter Two, with the same commands
+(see [Operator Tools](#operator-tools-collect-results-to-your-laptop)):
+
 ```bash
 git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git ~/gpu-bench-suite  
 cd ~/gpu-bench-suite                                  
@@ -264,11 +269,6 @@ bash list_runs.sh --host <server-address>              # List every run on the r
 bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
 Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in that folder to update the tools.
-
-Or download one file at a time (right-click → Save link as):
-[show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
-[list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
-[get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
 On your local laptop, the runtime ledger file is saved as a CSV file and as an XLSX file.
 
@@ -311,12 +311,19 @@ Every one of the 128 repositories follows the same structure, so once you have r
 
 ```text
 <NNN>-<repo>/
+├── README.md             # how to run this workload, its metrics and parameters
+├── SPEC.md               # the workload specification
+├── RESULTS_REFERENCE.md  # reference results from the validated run on real GPU hardware
 ├── run_setup.sh          # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
 ├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
 ├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
 ├── list_runs.sh          # bash list_runs.sh [--host <server-address>]: every run in the ledger
 ├── config/               # benchmark_config.yaml, hardware profiles
+├── docs/                 # PRD.md, GENERATION_REPORT.md
 ├── scripts/              # parse_results.py, validate_results.py, ...
+├── src/                  # benchmark source, where the workload builds its own code
+├── tests/                # tests and fixtures
+├── .github/workflows/    # CI workflows
 └── results/
     ├── raw/              # one folder per run: logs, metrics, hardware/software inventory
     ├── RESULTS_ACTUAL.md # latest run of each profile, readable
@@ -345,8 +352,10 @@ Every one of the 128 repositories follows the same structure, so once you have r
 Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven (`BenchmarkSpecDefinitions.xlsx`) framework that turns one row of the workload spreadsheet into a
-complete, execution-ready benchmark repo (setup script, README, PRD/SPEC,
-CI workflows, parsing/validation logic, and a smoke test) with **zero manual scaffolding**. By submitting a three-line prompt to an AI Coding Agent, complete repositories are generated. 
+complete, execution-ready benchmark repo (setup and benchmark scripts with smoke, baseline and extended profiles,
+README, PRD and SPEC, parsing and validation logic, CI workflows, and reference results) with **zero manual scaffolding**.
+By submitting a three-line prompt to an AI coding agent, complete repositories are generated, then installed and
+smoke-tested on a remote GPU server.
 
 ---
 ### Repository Creation
@@ -357,15 +366,8 @@ You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads
 
 - **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 - **SSH key access to the GPU server** as root.
-- **Git, Bash, and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash, as the generator runs its commands in Bash.
-- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model. Examples are below.
-
-| AI coding agent   | Model             | Last validated batch      |
-|-------------------|-------------------|---------------------------|
-| Cursor            | Grok 4.7          | November 2026             |
-| Cursor            | Claude Sonnet 5.5 | November 2026             |
-| Cursor            | Claude Opus 5.5   | November 2026             |  
-| Cursor            | GPT-5.6           | November 2026             |
+- **Git, Bash, and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/): the generator runs its commands in Git Bash, never WSL bash. On Linux and macOS it uses the system `bash`.
+- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model. See step 4.
 
 **1. Check that you can log in to the server**
 
@@ -389,13 +391,20 @@ The generated repositories are written in `workspace/`, next to the generator fo
 
 In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
 
-**4. AI coding agent and model**
+**4. Choose an AI coding agent and model**
 
 The generator is model-agnostic. Generation is driven by scripts and by written rules
 (`AGENTS.md`, `docs/AI_AGENT_INSTRUCTIONS.md`), so the agent launches and supervises
-the batch rather than writing benchmark code from scratch. Each editor and model below has
+the batch rather than writing benchmark code from scratch. Each agent and model below has
 generated a complete batch of 32 workload repositories that passed setup and smoke
 validation on real GPU hardware.
+
+| AI coding agent   | Model             | Last validated batch      |
+|-------------------|-------------------|---------------------------|
+| Cursor            | Grok 4.7          | November 2026             |
+| Cursor            | Claude Sonnet 5.5 | November 2026             |
+| Cursor            | Claude Opus 5.5   | November 2026             |
+| Cursor            | GPT-5.6           | November 2026             |
 
 
 **5. Create the prompt**
@@ -416,12 +425,17 @@ Paste the prompt into your AI coding agent’s chat box (in Cursor, the Agent pa
 
 **7. Let it run**
 
-Cursor changes its interface often, so check the panel name against your current Cursor before publishing. “Chat box” and “press Enter” will stay accurate even if the name changes.
+The agent starts the batch and reports progress as each workload passes; you can also watch
+`workspace/batch_progress.log`. Keep your computer awake and the agent open until it finishes.
+On a fresh AMD server the first workload may restart the server once to load the GPU driver;
+generation waits for it and continues. When the batch ends, the agent reports how many
+workloads passed and how long the batch took.
 
 **What you get**
 
 - **32 repositories** in `workspace/`, `101-sys-bench-amd-rocm-stack-validation-ubu2404/` through `132-gpu-bench-amd-rag-faiss-end2end-ubu2404/`, each laid out as shown in [Repository Layout & Execution Model](#repository-layout--execution-model).
 - **A ready server.** Each workload is installed and smoke-tested in `/opt/benchmarks/<repo>`, and the suite tools are in `/opt/benchmarks`, so the commands in [After the install](#after-the-install) work there right away.
+- **Bundle files in `workspace/`:** `README.md`, `run_benchmark_suite.sh`, `get_benchmark_results.sh`, `list_runs.sh` and `show_metrics.sh`, so `workspace/` looks like `/opt/benchmarks` after cloning a bundle.
 - **The operator tools** (`list_runs.sh`, `show_metrics.sh`, `get_benchmark_results.sh`) in `~/gpu-bench/`, ready to use as in [Operator Tools](#operator-tools-collect-results-to-your-laptop). The master copies of all the user scripts are in `ai-agent-gpu-benchmark-repo-generator/user_scripts/`.
 - **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`) and `batch_generation_manifest.json`, which lists each workload's result and generation time.
 
