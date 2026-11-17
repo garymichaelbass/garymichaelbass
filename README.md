@@ -123,7 +123,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 
 ---
 ---
-## CHAPTER TWO: Run a Single Test (Example: Workload 107)
+## CHAPTER TWO: Run a Single Test
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
 NOTE: Each workload is its own repository named `<workload_number>-<repo_base_name>`. Find yours in the `Repo Directory Name` column of the file below.
@@ -338,16 +338,16 @@ Every one of the 128 repositories follows the same structure, so once you have r
 
 ---
 ---
-## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
+## CHAPTER FOUR: Generate Your Own Test Suite
 
 ---
 ### How Are These Repositories Created? (zero manual scaffolding)
 
-Every repository in this matrix is generated, not hand-written, by
+Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
-a spec-driven framework (`BenchmarkSpecDefinitions.xlsx`) that turns one row of a workload spreadsheet into a
-complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
-CI workflows, parsing/validation logic, and a smoke test, with **zero manual scaffolding**. 
+a spec-driven (`BenchmarkSpecDefinitions.xlsx`) framework that turns one row of the workload spreadsheet into a
+complete, execution-ready benchmark repo (setup script, README, PRD/SPEC,
+CI workflows, parsing/validation logic, and a smoke test) with **zero manual scaffolding**. By submitting a three-line prompt to an AI Coding Agent, complete repositories are generated. 
 
 ---
 ### Repository Creation
@@ -358,8 +358,8 @@ You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads
 
 - **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 - **SSH key access to the GPU server** as root.
-- **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash; the generator runs its commands in Git Bash.
-- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model such as those listed below.
+- **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/) (which includes Git Bash) as the generator runs its commands in Git Bash.
+- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model. Examples are below.
 
 | AI coding agent   | Model             | Last validated batch      |
 |-------------------|-------------------|---------------------------|
@@ -379,8 +379,7 @@ You should get a root prompt without typing a password, and the login banner sho
 **2. Create a workspace and download the generator**
 
 ```bash
-mkdir -p ~/gpu-bench/workspace
-cd ~/gpu-bench/workspace
+mkdir -p ~/gpu-bench/workspace && cd ~/gpu-bench/workspace
 git clone https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator.git
 pip install jsonschema openpyxl PyYAML
 ```
@@ -400,7 +399,7 @@ generated a complete batch of 32 workload repositories that passed setup and smo
 validation on real GPU hardware.
 
 
-**5. Submit the prompt**
+**5. Create the prompt**
 
 Replace the key path and server address with your own, and keep the backquotes around the `ssh` command:
 
@@ -413,9 +412,15 @@ Remotely access Ubuntu VM with `ssh -i /path/to/.ssh/<your-key> root@<server-add
 - For another bundle, change the range and use a matching server: `201 through 232` (NVIDIA, Ubuntu 24.04), `301 through 332` (AMD, Ubuntu 26.04), or `401 through 432` (NVIDIA, Ubuntu 26.04).
 - To try a single workload first, use `Generate workload 107.`; lists such as `Generate workloads 107, 115.` also work.
 
+**6. Submit the prompt**
+
+Please note that once the prompt has been submitted, generating all 32 repositories typically takes 90 minutes or longer. 
+
+Click the `SUBMIT` button to begin the process.
+
 **6. Let it run**
 
-Generating all 32 typically takes 90 minutes or longer. The agent works through the workloads one at a time and keeps going until every one is done or recorded as failed. It runs on your computer, so keep the computer awake and online until it finishes.
+During the 90 minutes of runtime, the agent works through the workloads one at a time and keeps going until every one is done or recorded as failed. It runs on your computer, so keep the computer awake and online until it finishes.
 
 **What you get**
 
@@ -432,10 +437,10 @@ To change what gets generated (parameters, metrics, success criteria), edit `ai-
 ### ✅ Chapter Four Takeaways
 
 - Every repo is generated from one row of `BenchmarkSpecDefinitions.xlsx`
-- Set up a GPU VM with an SSH key; set up your PC with Git, Python 3.12+, and an AI agent
+- Set up a GPU system with an SSH key; set up your PC with Git, Python 3.12+, and an AI agent
 - Create `~/gpu-bench/workspace`, clone the generator, install dependencies, open the workspace
-- One prompt: `AI_AGENT_INSTRUCTIONS.md`, a workload range, and your `ssh` command
-- In about 90+ minutes, 32 repos are generated, installed, and validated on your GPU VM
+- One three-line prompt: `@AI_AGENT_INSTRUCTIONS.md`, a workload range, `ssh` command
+- In about 90+ minutes, 32 repos are generated, installed, and validated on your GPU system
 - Self-contained, relocatable, ready-to-use repos land in `~/gpu-bench/workspace`
 
 <br>
@@ -447,13 +452,13 @@ To change what gets generated (parameters, metrics, success criteria), edit `ai-
 
 - 32 workloads × 4 bundles = 128 repos for AMD and NVIDIA on Ubuntu 24.04 and 26.04
 - Self-contained, ready-to-use repos share a consistent layout and execution model
-- Run one workload with `bash run_benchmark.sh --smoke`; first run includes setup
+- `BenchmarkSpecDefinitions.xlsx` is the master blueprint: one row becomes one repository
+- Run one workload with `bash run_benchmark.sh --smoke`; first run includes run_setup.sh
 - Run all 32 with `bash run_benchmark_suite.sh --smoke` from `/opt/benchmarks`
-- Use Smoke for quick checks, Baseline for standard runs, and Extended for depth
-- Every run is logged: `results/raw` per workload, runtime ledger per machine
+- Use Smoke for quick checks, Baseline for standard runs, and Extended for sustained testing
+- Every run is logged: per workload in `results/raw`, per machine in `runtime_ledger.csv`
 - `show_metrics.sh`, `list_runs.sh`, and `get_benchmark_results.sh` work from your laptop
-- `BenchmarkSpecDefinitions.xlsx` is the blueprint: one row becomes one repository
-- One prompt to an AI coding agent generates, installs, and validates your own 32
+- One three-line prompt to an AI coding agent generates, installs, and validates your own 32 repos
 
 
 ---
