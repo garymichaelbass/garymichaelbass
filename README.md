@@ -341,25 +341,24 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 
 ---
-### How These Repositories Are Built
+### How Are These Repositories Created (zero manual scaffolding)
 
 Every repository in this matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven framework (`BenchmarkSpecDefinitions.xlsx`) that turns one row of a workload spreadsheet into a
 complete, execution-ready benchmark repo: setup script, README, PRD/SPEC,
-CI workflows, parsing/validation logic, and a smoke test, with zero manual
-scaffolding. The next section shows how to generate your own.
+CI workflows, parsing/validation logic, and a smoke test, with **zero manual scaffolding**. 
 
 ---
 ### Repository Creation
 
-Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next one. Each repository is built fairly quickly, with most of the time spent on the server installing and testing it.
+You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next repository. Each repository is built fairly quickly, with most of the time spent on the GPU server installing and testing it.
 
 **What you need**
 
 - **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
-- **SSH key access to that server** as root.
-- **An AI coding agent:** Cursor, or another one such as Claude Code or GitHub Copilot.
+- **SSH key access to the GPU server** as root.
+- **An AI coding editor and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model such as those listed in step 4.
 - **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash; the generator runs its commands in Git Bash.
 
 **1. Check that you can log in to the server**
@@ -385,20 +384,21 @@ The generated repositories are written in `workspace/`, next to the generator fo
 
 In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
 
-**4. AI coding agent**
+**4. AI coding egent**
 
 The generator is model-agnostic. Generation is driven by scripts and by written rules
 (`AGENTS.md`, `docs/AI_AGENT_INSTRUCTIONS.md`), so the agent launches and supervises
-the batch rather than writing benchmark code from scratch. Each agent below has
+the batch rather than writing benchmark code from scratch. Each editor and model below has
 generated a complete batch of 32 workload repositories that passed setup and smoke
 validation on real GPU hardware.
 
-| AI coding agent   | Used in           | Last validated batch      |
+| AI coding editor  | Model             | Last validated batch      |
 |-------------------|-------------------|---------------------------|
-| Grok 4.7          | Cursor            | November 2026             |
-| Claude Sonnet 5.5 | Cursor            | November 2026             |
-| Claude Opus 5.5   | Claude / Cursor   | November 2026             |
-| GPT-5.6           | Cursor            | November 2026             |
+| Cursor            | Grok 4.7          | November 2026             |
+| Cursor            | Claude Sonnet 5.5 | November 2026             |
+| Cursor            | Claude Opus 5.5   | November 2026             |  
+| Cursor            | GPT-5.6           | November 2026             |
+
 
 
 **5. Submit the prompt**
