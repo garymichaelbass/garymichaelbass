@@ -340,8 +340,7 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ---
 ## CHAPTER FOUR: Generate Your Own Test Suite
 
----
-### How Are These Repositories Created? (zero manual scaffolding)
+### How Are These Repositories Created? (a three-line prompt and zero manual scaffolding)
 
 Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
@@ -358,7 +357,7 @@ You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads
 
 - **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 - **SSH key access to the GPU server** as root.
-- **Git and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/) (which includes Git Bash) as the generator runs its commands in Git Bash.
+- **Git, Bash, and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/), which includes Git Bash, as the generator runs its commands in Bash.
 - **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model. Examples are below.
 
 | AI coding agent   | Model             | Last validated batch      |
@@ -384,7 +383,7 @@ git clone https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-ge
 pip install jsonschema openpyxl PyYAML
 ```
 
-The generated repositories are written in `workspace/`, next to the generator folder. Use a dedicated folder like this one; the generator also copies its operator tools to the folder above it (`~/gpu-bench/`).
+The generated repositories are written in `workspace/`, next to the generator folder, together with the files a cloned bundle has at its top: `README.md`, `run_benchmark_suite.sh`, `get_benchmark_results.sh`, `list_runs.sh` and `show_metrics.sh`. Use a dedicated folder like this one: the generator also copies its three laptop tools (`get_benchmark_results.sh`, `list_runs.sh`, `show_metrics.sh`) to the folder above it (`~/gpu-bench/`).
 
 **3. Open the workspace in your AI coding agent**
 
@@ -410,17 +409,14 @@ Remotely access Ubuntu VM with `ssh -i /path/to/.ssh/<your-key> root@<server-add
 ```
 
 - For another bundle, change the range and use a matching server: `201 through 232` (NVIDIA, Ubuntu 24.04), `301 through 332` (AMD, Ubuntu 26.04), or `401 through 432` (NVIDIA, Ubuntu 26.04).
-- To try a single workload first, use `Generate workload 107.`; lists such as `Generate workloads 107, 115.` also work.
 
 **6. Submit the prompt**
 
-Please note that once the prompt has been submitted, generating all 32 repositories typically takes 90 minutes or longer. 
+Paste the prompt into your AI coding agent’s chat box (in Cursor, the Agent panel) and press Enter to send it. Generating all 32 repositories typically takes 90 minutes or longer.
 
-Click the `SUBMIT` button to begin the process.
+**7. Let it run**
 
-**6. Let it run**
-
-During the 90 minutes of runtime, the agent works through the workloads one at a time and keeps going until every one is done or recorded as failed. It runs on your computer, so keep the computer awake and online until it finishes.
+Cursor changes its interface often, so check the panel name against your current Cursor before publishing. “Chat box” and “press Enter” will stay accurate even if the name changes.
 
 **What you get**
 
