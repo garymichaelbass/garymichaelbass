@@ -341,7 +341,7 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
 
 ---
-### How Are These Repositories Created (zero manual scaffolding)
+### How Are These Repositories Created? (zero manual scaffolding)
 
 Every repository in this matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
