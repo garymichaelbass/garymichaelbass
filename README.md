@@ -328,7 +328,7 @@ scaffolding. The next section shows how to generate your own.
 ---
 ---
 ## CHAPTER FOUR: Generate Your Own Test Suite (Example: AMD+Ubuntu_24.04)
-Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification Drive GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). An AI coding agent builds each repository on your computer, installs it on your GPU server, and runs its smoke test there before moving on to the next one.
+Create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator (ai-agent-gpu-benchmark-repo-generator). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next one. Each repository is built fairly quickly, with most of the time spent on the server installing and testing it.
 
 **What you need**
 
