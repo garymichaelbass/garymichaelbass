@@ -132,6 +132,7 @@ NOTE: Each workload is its own repository named `<number>-<name>`. Find yours in
 
 ```bash
 apt install git -y
+mkdir -p /opt/benchmarks && cd /opt/benchmarks
 git clone https://github.com/garys-gpu-benchmarks/107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404.git
 cd 107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404
 bash run_benchmark.sh --help   # Shows help
@@ -150,6 +151,43 @@ bash list_runs.sh                       # List every run on the server via `/var
 ```
 
 ---
+### Runtime Ledger (/var/opt/benchmarks/runtime_ledger.csv)
+
+Each execution of run_benchmark.sh adds a row to the runtime ledger 
+which includes (but is not limited to) the following columns.
+
+hostname
+os_version
+kernel_version
+gpu_driver_version
+gpu_name
+gpu_vram
+gpu_count
+cpu_model
+network_download_mb_s
+workload_number
+run_benchmark_command_submitted
+run_benchmark_command_fully_resolved
+benchmark_profile (smoke, baseline, extended)
+Parameter_01_Name
+Parameter_01_Value
+........
+Parameter_15_Name
+Parameter_15_Value
+result_status
+exit_code
+failure_detail
+start_script_datetime
+runtime_script_mm_ss
+runtime_setup_mm_ss
+runtime_benchmark_mm_ss
+metric_1_def
+metric_1_result
+........
+metric_7_def
+metric_7_result
+
+---
 ### Operator Tools (collect results to your laptop)
 
 Download the tools with Git (Git Bash works on Windows; assumes SSH to VM on port 22):
@@ -160,6 +198,7 @@ cd ~/gpu-bench-suite
 
 bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on remote server
 bash list_runs.sh --host <server-address>              # List every run on the remote server
+bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
 ```
 
 Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in that folder to update the tools.
@@ -167,6 +206,10 @@ Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in th
 Or download one file at a time (right-click → Save link as):
 [show_metrics.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/show_metrics.sh) ·
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
+[get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
+
+On your local laptop, the runtime ledger file is saved as a CSV file and as an XLSX file.
+
 
 **Congratulations. You've executed your first workload!**
 
@@ -248,6 +291,7 @@ Or download one file at a time (right-click → Save link as):
 [list_runs.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/list_runs.sh) ·
 [get_benchmark_results.sh](https://github.com/garys-gpu-benchmarks/gpu-bench-suite/raw/main/get_benchmark_results.sh)
 
+On your local laptop, the runtime ledger file is saved as a CSV file and as an XLSX file.
 
 **Congratulations. You've run an entire bundle of 32 workloads!**
 <br>
@@ -282,7 +326,6 @@ For anything longer than a few minutes, start `tmux new -s bench` first, so a dr
 To copy results to your laptop, see [Operator Tools (collect results to your laptop)](#operator-tools-collect-results-to-your-laptop) above.
 
 ---
-
 ## Repository Layout & Execution Model
 
 Every one of the 128 repositories follows the same structure, so once you have run one, you know how to run all of them:
@@ -303,7 +346,6 @@ Every one of the 128 repositories follows the same structure, so once you have r
 ```
 
 ---
-
 ## How These Repositories Are Built
 
 Every repository in this matrix is generated, not hand-written, by
