@@ -372,7 +372,7 @@ An AI coding agent running [`ai-agent-gpu-benchmark-repo-generator`](https://git
 ---
 ### Repository Creation
 
-You can now create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) 
+You now now create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) 
 and a three-line prompt.
 
 **What you need**
@@ -389,7 +389,7 @@ ssh -i /path/to/.ssh/<your-key> root@<server-address>     # Windows example: /c/
 ```
 
 You should get a root prompt without typing a password, and the login banner should show Ubuntu 24.04. Add `-p <port>` if SSH is not on port 22 (Runpod usually needs this). Type `exit` to log out.
-tput
+
 **2. Create a workspace and download the generator**
 
 ```bash
