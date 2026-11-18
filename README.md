@@ -353,7 +353,7 @@ Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven framework that turns one row of the workload spreadsheet 
 (`BenchmarkSpecDefinitions.xlsx`) into a
-complete, execution-ready benchmark repo (including setup and benchmark scripts
+complete, execution-ready benchmark repo (including setup and benchmark scripts, 
 README, PRD, SPEC, CI workflows, etc.) with **zero manual scaffolding**.
 
 Because every repository is built from the same generator and shared templates, one improvement reaches the entire codebase in a single pass. For example, changing the layout for `run_benchmark.sh --help` is made once in the generator and appears in all 128 repositories at the next generation, with no hand-editing of individual repos. This ensures consistency in behavior and appearance across the entire suite.
@@ -371,14 +371,14 @@ An AI coding agent running the Repository Generator ([`ai-agent-gpu-benchmark-re
 ---
 ### Repository Creation
 
-You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)) and a three-line prompt.
+You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) and a three-line prompt.
 
 **What you need**
 
 - **A GPU server that matches the bundle.** For 101–132: an AMD MI300X running Ubuntu 24.04 plus 20+ vCPUs, 128+ GB RAM, about 500 GB of local disk, and Internet access. For the other bundles, see [Four Platform Bundles](#four-platform-bundles) and [System Requirements](#system-requirements). A freshly installed server works best. No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 - **SSH key access to the GPU server** as root.
 - **Git, Bash, and Python 3.12 or newer** on your computer. On Windows, install [Git for Windows](https://gitforwindows.org/): the generator runs its commands in Git Bash, never WSL bash. On Linux and macOS it uses the system `bash`.
-- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model. See step 4.
+- **An AI coding agent and a model:** an agent tool such as Cursor, Claude Code, or GitHub Copilot, running a capable model. See step 3.
 
 **1. Check that you can log in to the server**
 
