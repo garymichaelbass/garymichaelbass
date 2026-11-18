@@ -358,7 +358,7 @@ README, PRD, SPEC, CI workflows, etc.) with **zero manual scaffolding**.
 
 Because every repository is built from the same generator and shared templates, one improvement reaches the entire codebase in a single pass. For example, changing the layout for `run_benchmark.sh --help` is made once in the generator and appears in all 128 repositories at the next generation, with no hand-editing of individual repos. This ensures consistency in behavior and appearance across the entire suite.
 
-An AI coding agent running the Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)):
+An AI coding agent running the Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`]https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator:
 
 - takes a three-line prompt
 - uses the generator's process for repository creation
@@ -371,7 +371,7 @@ An AI coding agent running the Repository Generator ([`ai-agent-gpu-benchmark-re
 ---
 ### Repository Creation
 
-You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) and a three-line prompt.
+You can now create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) and a three-line prompt.
 
 **What you need**
 
@@ -396,7 +396,22 @@ git clone https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-ge
 pip install jsonschema openpyxl PyYAML
 ```
 
-The generated repositories are written in `workspace/`, next to the generator folder, together with the files a cloned bundle has at its top: `README.md`, `run_benchmark_suite.sh`, `get_benchmark_results.sh`, `list_runs.sh` and `show_metrics.sh`. Use a dedicated folder like this one: the generator also copies its three laptop tools (`get_benchmark_results.sh`, `list_runs.sh`, `show_metrics.sh`) to the folder above it (`~/gpu-bench/`).
+The generated repositories are written in `workspace/` as follows:
+
+```text
+~/gpu-bench/
+└── workspace/
+    ├── 101-sys-bench-amd-rocm-stack-validation-ubu2404/
+    ├── 102-sys-bench-amd-rocm-health-validation-ubu2404/
+    ├── ...
+    ├── 132-gpu-bench-amd-rag-faiss-end2end-ubu2404/
+    ├── ai-agent-gpu-benchmark-repo-generator/
+    ├── get_benchmark_results.sh  # the files a cloned bundle has at its top
+    ├── list_runs.sh
+    ├── README.md
+    ├── run_benchmark_suite.sh
+    └── show_metrics.sh
+```
 
 **3. Choose an AI coding agent and model**
 
