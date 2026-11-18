@@ -353,21 +353,26 @@ Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven (`BenchmarkSpecDefinitions.xlsx`) framework that turns one row of the workload spreadsheet into a
 complete, execution-ready benchmark repo (setup and benchmark scripts with smoke, baseline and extended profiles,
-README, PRD and SPEC, parsing and validation logic, CI workflows, and reference results) with **zero manual scaffolding**.
+README, PRD and SPEC, plus CI workflows) with **zero manual scaffolding**.
 By submitting a three-line prompt to an AI coding agent, complete repositories are generated, then installed and
 smoke-tested on a remote GPU server.
+
+Because every repository is built from the same generator and shared templates, one improvement reaches the entire codebase in a single pass. For example, a clearer layout for `run_benchmark.sh --help` is made once in the generator and appears in all 128 repositories at the next generation, with no hand-editing of individual repos. Every repository stays consistent, because none of them can drift from the others.
+
+An AI coding agent running the Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)):
+
+- begins a three-line prompt
+- reads one line from the BenchmarkSpecDefinitions.xlsx file
+- follows the generator's process for repository creation
+- builds each repository on your computer
+- copies it to your GPU server
+- runs the repository's setup and smoke test on the GPU server
+- moves on to the next repository
 
 ---
 ### Repository Creation
 
 You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next repository.
-
-Using the Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator))
-- AI coding agent runs the generator
-- builds each repository on your computer
-- copies it to your GPU server, 
-- runs its setup and smoke test on the GPU server
-- moves on to the next repository
 
 **What you need**
 
