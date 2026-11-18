@@ -353,13 +353,12 @@ Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven framework that turns one row of the workload spreadsheet 
 (`BenchmarkSpecDefinitions.xlsx`) into a
-complete, execution-ready benchmark repo (including setup and benchmark scripts, 
-README, PRD, SPEC, CI workflows, etc.) with **zero manual scaffolding**.
+complete, execution-ready benchmark repo including setup and benchmark scripts, 
+README, PRD, SPEC, and CI workflows.
 
 Because every repository is built from the same generator and shared templates, one improvement reaches the entire codebase in a single pass. For example, changing the layout for `run_benchmark.sh --help` is made once in the generator and appears in all 128 repositories at the next generation, with no hand-editing of individual repos. This ensures consistency in behavior and appearance across the entire suite.
 
-An AI coding agent running the Repository Generator [`ai-agent-gpu-benchmark-repo-generator`]
-(https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator):
+An AI coding agent running the [Repository Generator](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator):
 
 - takes a three-line prompt
 - uses the generator's process for repository creation
