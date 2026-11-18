@@ -360,9 +360,9 @@ Because every repository is built from the same generator and shared templates, 
 
 An AI coding agent running the Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)):
 
-- begins a three-line prompt
+- reads a three-line prompt
+- uses the generator's process for repository creation
 - reads one line from the BenchmarkSpecDefinitions.xlsx file
-- follows the generator's process for repository creation
 - builds each repository on your computer
 - copies it to your GPU server
 - runs the repository's setup and smoke test on the GPU server
