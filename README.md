@@ -396,23 +396,6 @@ git clone https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-ge
 pip install jsonschema openpyxl PyYAML
 ```
 
-The generated repositories are written in `workspace/` as follows:
-
-```text
-~/gpu-bench/
-└── workspace/
-    ├── 101-sys-bench-amd-rocm-stack-validation-ubu2404/
-    ├── 102-sys-bench-amd-rocm-health-validation-ubu2404/
-    ├── ...
-    ├── 132-gpu-bench-amd-rag-faiss-end2end-ubu2404/
-    ├── ai-agent-gpu-benchmark-repo-generator/
-    ├── get_benchmark_results.sh  # the files a cloned bundle has at its top
-    ├── list_runs.sh
-    ├── README.md
-    ├── run_benchmark_suite.sh
-    └── show_metrics.sh
-```
-
 **3. Choose an AI coding agent and model**
 
 The generator is model-agnostic. Generation is driven by scripts and by written rules
@@ -460,15 +443,32 @@ On a fresh AMD server the first workload may restart the server once to load the
 generation waits for it and continues. When the batch ends, the agent reports how many
 workloads passed and how long the batch took.
 
+**8. Final result (Your Own Test Suite)**
+
+The generated repositories (plua some extra files) are written in `workspace/` as follows:
+
+```text
+~/gpu-bench/
+└── workspace/
+    ├── 101-sys-bench-amd-rocm-stack-validation-ubu2404/
+    ├── 102-sys-bench-amd-rocm-health-validation-ubu2404/
+    ├── ...
+    ├── 132-gpu-bench-amd-rag-faiss-end2end-ubu2404/
+    ├── ai-agent-gpu-benchmark-repo-generator/
+    ├── get_benchmark_results.sh  # the files a cloned bundle has at its top
+    ├── list_runs.sh
+    ├── README.md
+    ├── run_benchmark_suite.sh
+    └── show_metrics.sh
+```
+
 **What you get**
 
 - **32 repositories** in `workspace/`, `101-sys-bench-amd-rocm-stack-validation-ubu2404/` through `132-gpu-bench-amd-rag-faiss-end2end-ubu2404/`, each laid out as shown in [Repository Layout & Execution Model](#repository-layout--execution-model).
-- **A ready server.** Each workload is installed and smoke-tested in `/opt/benchmarks/<repo>`, and the suite tools are in `/opt/benchmarks`, so the commands in [After the install](#after-the-install) work there right away.
-- **Bundle files in `workspace/`:** `README.md`, `run_benchmark_suite.sh`, `get_benchmark_results.sh`, `list_runs.sh` and `show_metrics.sh`, so `workspace/` looks like `/opt/benchmarks` after cloning a bundle.
-- **The operator tools** (`list_runs.sh`, `show_metrics.sh`, `get_benchmark_results.sh`) in `~/gpu-bench/`, ready-to-use as in [Operator Tools](#operator-tools-collect-results-to-your-laptop). The master copies of all the user scripts are in `ai-agent-gpu-benchmark-repo-generator/user_scripts/`.
+- **Bundle files (including operator tools) in `workspace/`:** `get_benchmark_results.sh`, `list_runs.sh`, `README.md`, `run_benchmark_suite.sh`, and `show_metrics.sh`, 
+**so `workspace/` looks like `/opt/benchmarks` after cloning a bundle.**
 - **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`) and `batch_generation_manifest.json`, which lists each workload's result and generation time.
-
-To change what gets generated (parameters, metrics, success criteria), edit `ai-agent-gpu-benchmark-repo-generator/BenchmarkSpecDefinitions.xlsx` before you submit the prompt.
+- **A ready server.** Each workload is installed and smoke-tested in `/opt/benchmarks/<repo>`, and the suite tools are in `/opt/benchmarks`, so the commands in [After the install](#after-the-install) work there right away.
 
 **Congratulations. You've created 32 workloads!**
 
