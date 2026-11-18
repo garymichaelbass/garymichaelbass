@@ -372,7 +372,8 @@ An AI coding agent running the Repository Generator [`ai-agent-gpu-benchmark-rep
 ---
 ### Repository Creation
 
-You can now create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) and a three-line prompt.
+You can now create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) by using [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) 
+and a three-line prompt.
 
 **What you need**
 
