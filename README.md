@@ -360,7 +360,14 @@ smoke-tested on a remote GPU server.
 ---
 ### Repository Creation
 
-You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next repository. Each repository is built fairly quickly, with most of the time spent on the GPU server installing and testing it.
+You now can create the 32 repositories in the AMD+Ubuntu_24.04 bundle (workloads 101–132) using the AI Coding Agent Specification-Driven GPU Benchmark Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator)). Your AI coding agent runs the generator, which builds each repository on your computer, copies it to your GPU server, and runs its setup and smoke test there before moving on to the next repository.
+
+Using the Repository Generator ([`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator))
+- AI coding agent runs the generator
+- builds each repository on your computer
+- copies it to your GPU server, 
+- runs its setup and smoke test on the GPU server
+- moves on to the next repository
 
 **What you need**
 
@@ -436,7 +443,7 @@ workloads passed and how long the batch took.
 - **32 repositories** in `workspace/`, `101-sys-bench-amd-rocm-stack-validation-ubu2404/` through `132-gpu-bench-amd-rag-faiss-end2end-ubu2404/`, each laid out as shown in [Repository Layout & Execution Model](#repository-layout--execution-model).
 - **A ready server.** Each workload is installed and smoke-tested in `/opt/benchmarks/<repo>`, and the suite tools are in `/opt/benchmarks`, so the commands in [After the install](#after-the-install) work there right away.
 - **Bundle files in `workspace/`:** `README.md`, `run_benchmark_suite.sh`, `get_benchmark_results.sh`, `list_runs.sh` and `show_metrics.sh`, so `workspace/` looks like `/opt/benchmarks` after cloning a bundle.
-- **The operator tools** (`list_runs.sh`, `show_metrics.sh`, `get_benchmark_results.sh`) in `~/gpu-bench/`, ready to use as in [Operator Tools](#operator-tools-collect-results-to-your-laptop). The master copies of all the user scripts are in `ai-agent-gpu-benchmark-repo-generator/user_scripts/`.
+- **The operator tools** (`list_runs.sh`, `show_metrics.sh`, `get_benchmark_results.sh`) in `~/gpu-bench/`, ready-to-use as in [Operator Tools](#operator-tools-collect-results-to-your-laptop). The master copies of all the user scripts are in `ai-agent-gpu-benchmark-repo-generator/user_scripts/`.
 - **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`) and `batch_generation_manifest.json`, which lists each workload's result and generation time.
 
 To change what gets generated (parameters, metrics, success criteria), edit `ai-agent-gpu-benchmark-repo-generator/BenchmarkSpecDefinitions.xlsx` before you submit the prompt.
@@ -447,7 +454,7 @@ To change what gets generated (parameters, metrics, success criteria), edit `ai-
 ### ✅ Chapter Four Takeaways
 
 - Every repo is generated from one row of `BenchmarkSpecDefinitions.xlsx`
-- Set up a GPU system with an SSH key; set up your PC with Git, Python 3.12+, and an AI agent
+- Set up a GPU system with an SSH key; set up PC with Git, Bash, Python 3.12+, and an AI agent
 - Create `~/gpu-bench/workspace`, clone the generator, install dependencies, open the workspace
 - One three-line prompt: `@AI_AGENT_INSTRUCTIONS.md`, a workload range, `ssh` command
 - In about 90+ minutes, 32 repos are generated, installed, and validated on your GPU system
