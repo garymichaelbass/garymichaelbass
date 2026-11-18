@@ -353,7 +353,7 @@ Every repository in the matrix is generated, not hand-written, by
 [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
 a spec-driven framework that turns one row of the workload spreadsheet 
 (`BenchmarkSpecDefinitions.xlsx`) into a
-complete, execution-ready benchmark repo (setup and benchmark scripts
+complete, execution-ready benchmark repo (including setup and benchmark scripts
 README, PRD, SPEC, CI workflows, etc.) with **zero manual scaffolding**.
 
 Because every repository is built from the same generator and shared templates, one improvement reaches the entire codebase in a single pass. For example, changing the layout for `run_benchmark.sh --help` is made once in the generator and appears in all 128 repositories at the next generation, with no hand-editing of individual repos. This ensures consistency in behavior and appearance across the entire suite.
@@ -398,11 +398,7 @@ pip install jsonschema openpyxl PyYAML
 
 The generated repositories are written in `workspace/`, next to the generator folder, together with the files a cloned bundle has at its top: `README.md`, `run_benchmark_suite.sh`, `get_benchmark_results.sh`, `list_runs.sh` and `show_metrics.sh`. Use a dedicated folder like this one: the generator also copies its three laptop tools (`get_benchmark_results.sh`, `list_runs.sh`, `show_metrics.sh`) to the folder above it (`~/gpu-bench/`).
 
-**3. Open the workspace in your AI coding agent**
-
-In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
-
-**4. Choose an AI coding agent and model**
+**3. Choose an AI coding agent and model**
 
 The generator is model-agnostic. Generation is driven by scripts and by written rules
 (`AGENTS.md`, `docs/AI_AGENT_INSTRUCTIONS.md`), so the agent launches and supervises
@@ -417,6 +413,13 @@ validation on real GPU hardware.
 | Cursor            | Claude Opus 5.5   | November 2026             |
 | Cursor            | GPT-5.6           | November 2026             |
 
+**4. Open the workspace in your AI coding agent**
+
+In Cursor, choose **File → Open Folder** and open `workspace`: the folder that *contains* `ai-agent-gpu-benchmark-repo-generator`, not the generator folder itself. Use Agent mode. On Windows, make Git Bash Cursor's default terminal.
+
+<a href="images/cursor-screen.png">
+  <img src="images/cursor-screen.png" alt="Cursor screen showing WORKSPACE parent directory and ai-agent-gpu-benchmark-repo-generator subdirectory" width="100%">
+</a>
 
 **5. Create the prompt**
 
