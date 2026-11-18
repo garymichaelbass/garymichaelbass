@@ -349,8 +349,9 @@ Every one of the 128 repositories follows the same structure, so once you have r
 
 ### How Are These Repositories Created? (a three-line prompt, and a whole lotta AI)
 
-Every repository in the matrix is generated, not hand-written, by
-[`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) —
+Every repository in the matrix is generated, not hand-written, by 
+[`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator) 
+(the Repository Generator) —
 a spec-driven framework that turns one row of the workload spreadsheet 
 (`BenchmarkSpecDefinitions.xlsx`) into a
 complete, execution-ready benchmark repo including setup and benchmark scripts, 
@@ -358,7 +359,7 @@ README, PRD, SPEC, and CI workflows.
 
 Because every repository is built from the same generator and shared templates, one improvement reaches the entire codebase in a single pass. For example, changing the layout for `run_benchmark.sh --help` is made once in the generator and appears in all 128 repositories at the next generation, with no hand-editing of individual repos. This ensures consistency in behavior and appearance across the entire suite.
 
-An AI coding agent running the [Repository Generator](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator):
+An AI coding agent running [`ai-agent-gpu-benchmark-repo-generator`](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator):
 
 - takes a three-line prompt
 - uses the generator's process for repository creation
@@ -388,7 +389,7 @@ ssh -i /path/to/.ssh/<your-key> root@<server-address>     # Windows example: /c/
 ```
 
 You should get a root prompt without typing a password, and the login banner should show Ubuntu 24.04. Add `-p <port>` if SSH is not on port 22 (Runpod usually needs this). Type `exit` to log out.
-
+tput
 **2. Create a workspace and download the generator**
 
 ```bash
