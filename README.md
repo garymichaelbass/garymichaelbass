@@ -1,6 +1,6 @@
 # GPU Benchmark & Platform Validation Workloads<br><sub>*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*</sub>
 
-**YouTube video tutorial:** [GPU Benchmark & Platform Validation for AMD & NVIDIA](https://youtu.be/DP660QtymVQ)<br>
+**Video tutorial (youtube.com/garymichaelbass):** [GPU Benchmark & Platform Validation for AMD & NVIDIA](https://youtu.be/DP660QtymVQ)<br>
 **This page:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
 ---
