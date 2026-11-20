@@ -1,4 +1,6 @@
-# GPU Benchmark & Platform Validation Workloads<br><sub>*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*</sub>
+# GPU Benchmark & Platform Validation Workloads
+
+<small>*Run one test, run all 32, or generate your own — for AMD and NVIDIA GPUs*</small>
 
 ### **This page:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
@@ -112,7 +114,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 ---
 ### Repository Layout & Execution Model
 
-Every one of the 128 repositories follows the same structure, Once you have run, you know how to run all of them:
+Every one of the 128 repositories follows the same structure, Once you have run, you know how to run all of them.
 
 ```text
 <NNN>-<repo>/
