@@ -192,8 +192,6 @@ which includes (but is not limited to) the following columns.
 - **Metrics:** `metric_1_def`, `metric_1_result` … `metric_7_def`, `metric_7_result`
 - **Status:** `result_status`, `exit_code`, `failure_detail`
 
-
-
 ---
 ### Operator Tools (collect results to your laptop)
 
