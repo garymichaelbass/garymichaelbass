@@ -110,6 +110,33 @@ The workload suites cover seven primary areas:
 No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 
 ---
+## Repository Layout & Execution Model
+
+Every one of the 128 repositories follows the same structure, Once you have run, you know how to run all of them:
+
+```text
+<NNN>-<repo>/
+├── README.md             # how to run this workload, its metrics and parameters
+├── SPEC.md               # the workload specification
+├── RESULTS_REFERENCE.md  # reference results from the validated run on real GPU hardware
+├── run_setup.sh          # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
+├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
+├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
+├── list_runs.sh          # bash list_runs.sh [--host <server-address>]: every run in the ledger
+├── config/               # benchmark_config.yaml, hardware profiles
+├── docs/                 # PRD.md, GENERATION_REPORT.md
+├── scripts/              # parse_results.py, validate_results.py, ...
+├── src/                  # benchmark source, where the workload builds its own code
+├── tests/                # tests and fixtures
+├── .github/workflows/    # CI workflows
+└── results/
+    ├── raw/              # one folder per run: logs, metrics, hardware/software inventory
+    ├── RESULTS_ACTUAL.md # latest run of each profile, readable
+    ├── benchmark.db      # latest run (SQLite)
+    └── summary.json      # latest run summary
+```
+
+---
 ### ✅ Chapter One Takeaways
 
 - 32 standardized workloads × 4 platform bundles = 128 repositories
@@ -126,7 +153,7 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 ## CHAPTER TWO: Run a Single Test
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
-NOTE: Repository directory names are formatted as `<workload_number>-<repo_base_name>` (e.g., `107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404`). Find yours in the `Repo Directory Name` column of the file below.
+NOTE: Repository names are formatted as `<workload_number>-<repo_base_name>` (e.g., `107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404`). Find yours in the `Repo Directory Name` column of the file below.
 
 [BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
 
@@ -304,32 +331,6 @@ For anything longer than a few minutes, start `tmux new -s bench` first, so a dr
 
 To copy results to your laptop, see [Operator Tools (collect results to your laptop)](#operator-tools-collect-results-to-your-laptop) above.
 
----
-## Repository Layout & Execution Model
-
-Every one of the 128 repositories follows the same structure, so once you have run one, you know how to run all of them:
-
-```text
-<NNN>-<repo>/
-├── README.md             # how to run this workload, its metrics and parameters
-├── SPEC.md               # the workload specification
-├── RESULTS_REFERENCE.md  # reference results from the validated run on real GPU hardware
-├── run_setup.sh          # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
-├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
-├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
-├── list_runs.sh          # bash list_runs.sh [--host <server-address>]: every run in the ledger
-├── config/               # benchmark_config.yaml, hardware profiles
-├── docs/                 # PRD.md, GENERATION_REPORT.md
-├── scripts/              # parse_results.py, validate_results.py, ...
-├── src/                  # benchmark source, where the workload builds its own code
-├── tests/                # tests and fixtures
-├── .github/workflows/    # CI workflows
-└── results/
-    ├── raw/              # one folder per run: logs, metrics, hardware/software inventory
-    ├── RESULTS_ACTUAL.md # latest run of each profile, readable
-    ├── benchmark.db      # latest run (SQLite)
-    └── summary.json      # latest run summary
-```
 
 ---
 ### ✅ Chapter Three Takeaways
@@ -339,7 +340,7 @@ Every one of the 128 repositories follows the same structure, so once you have r
 - Install, execute, and validate all 32 workloads with `bash run_benchmark_suite.sh --smoke`
 - First smoke run (includes `run_setup.sh`setup) is longest with subsequent runs being shorter
 - Runtime ledger (`runtime_ledger.csv`) tracks benchmark run history across the entire system
-- Results are kept per workload, per machine (ledger), and per run_benchmark_suite (pass/fail)
+- Results kept per workload /results/raw, per machine ledger, and per runtime suite log
 
 <br>
 
