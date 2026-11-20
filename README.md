@@ -153,7 +153,7 @@ Every one of the 128 repositories follows the same structure, Once you have run,
 ---
 ---
 ## CHAPTER TWO: Run a Single Test
-Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
+Download, install, and run an individual benchmark repository (Workload 107, STREAM - CPU (Copy/Scale/Add/Triad), AMD Ubuntu 24.04):
 
 NOTE: Repository names for all 128 workloads can be found in the `Repo Directory Name` column of the 
 [BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
@@ -170,8 +170,9 @@ bash run_benchmark.sh --smoke  # Performs initial setup then runs benchmark (smo
 Inspect run results:
 
 ```bash
-ls -a results/raw/*/*                     # List results directory
+ls -a results/raw                         # List results/raw directory name
 cat results/raw/*/metrics_summary.txt     # Display metrics stored in file
+ls -a results/raw/*                       # List contents of results/raw/* directory
 bash run_benchmark.sh --smoke --repeat 2  # Run the test two more times to generate additional results
 bash show_metrics.sh 107                  # Show metrics for 107 (three passes)
 bash list_runs.sh                         # List every run on the server via `/var/opt/benchmarks/runtime_ledger.csv` 
