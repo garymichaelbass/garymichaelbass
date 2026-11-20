@@ -4,7 +4,7 @@
 
 ### **This page:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
-### **Video tutorial:** [YouTube GPU Benchmark & Platform Validation](https://studio.youtube.com/video/DP660QtymVQ/edit)
+### **YouTube video tutorial:** [GPU Benchmark & Platform Validation: Run One Test, Run All 32, or Generate Your Own](https://studio.youtube.com/video/DP660QtymVQ/edit)
 
 ---
 
