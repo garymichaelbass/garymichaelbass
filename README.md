@@ -110,7 +110,7 @@ The workload suites cover seven primary areas:
 No server? See [Getting started on AMD Developer Cloud](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/amd-developer-cloud-getting-started.md) or [Getting started on Runpod](https://github.com/garys-gpu-benchmarks/ai-agent-gpu-benchmark-repo-generator/blob/main/docs/runpod-getting-started.md).
 
 ---
-## Repository Layout & Execution Model
+### Repository Layout & Execution Model
 
 Every one of the 128 repositories follows the same structure, Once you have run, you know how to run all of them:
 
