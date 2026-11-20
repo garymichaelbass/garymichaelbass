@@ -4,7 +4,7 @@
 
 ### **This page:** [github.com/GaryMichaelBass/GaryMichaelBass](https://github.com/GaryMichaelBass/GaryMichaelBass)
 
-### **YouTube video tutorial:** [GPU Benchmark & Platform Validation for AMD & NVIDIA](https://studio.youtube.com/video/DP660QtymVQ/edit)
+### **YouTube video tutorial:** [GPU Benchmark & Platform Validation for AMD & NVIDIA](https://youtu.be/DP660QtymVQ)
 
 ---
 
