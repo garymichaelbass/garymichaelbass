@@ -155,8 +155,7 @@ Every one of the 128 repositories follows the same structure, Once you have run,
 ## CHAPTER TWO: Run a Single Test
 Download, install, and run an individual benchmark repository (Workload 107 - AMD Ubuntu 24.04):
 
-NOTE: Repository names are formatted as `<workload_number>-<repo_base_name>` (e.g., `107-sys-bench-amd-stream-ddr5-bandwidth-ubu2404`). Find yours in the `Repo Directory Name` column of the file below.
-
+NOTE: Repository names for all 128 workloads can be found in the `Repo Directory Name` column of the 
 [BenchmarkSpecDefinitions.xlsx](https://github.com/garymichaelbass/garymichaelbass/raw/refs/heads/main/BenchmarkSpecDefinitions.xlsx)
 
 ```bash
