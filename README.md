@@ -255,7 +255,7 @@ Download, install, and run an entire bundle of 32 repositories (AMD Ubuntu 24.04
 | AMD · Ubuntu 26.04 | `bundle-amd-ubuntu-2604` | 301–332 |
 | NVIDIA · Ubuntu 26.04 | `bundle-nvidia-ubuntu-2604` | 401–432 |
 
-**2. Download it and check it** (AMD · Ubuntu 24.04 shown. Replace with your bundle name if different):
+**2. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
 
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
@@ -289,18 +289,6 @@ bash list_runs.sh                       # List every run on the server via `/var
 
 Use the operator tools from Chapter Two, with the same commands
 (see [Operator Tools](#operator-tools-collect-results-to-your-laptop)):
-
-```bash
-git clone https://github.com/garys-gpu-benchmarks/gpu-bench-suite.git ~/gpu-bench-suite  
-cd ~/gpu-bench-suite                                  
-
-bash show_metrics.sh --host <server-address> 107       # Show metrics for 107 on remote server
-bash list_runs.sh --host <server-address>              # List every run on the remote server
-bash get_benchmark_results.sh --host <server-address>  # Copy results, ledger, and logs from remote server
-```
-Add `--port N` if SSH is not on port 22 (ie, using Runpod). Run `git pull` in that folder to update the tools.
-
-On your local laptop, the runtime ledger file is saved as a CSV file and as an XLSX file.
 
 **Congratulations. You've run an entire bundle of 32 workloads!**
 <br>
