@@ -182,8 +182,8 @@ bash list_runs.sh                         # List every run on the server via `/v
 ---
 ### Runtime Ledger (/var/opt/benchmarks/runtime_ledger.csv)
 
-Each execution of run_benchmark.sh adds a row to the runtime ledger file (91 columns)
-which includes (but is not limited to) the following columns.
+Each execution of run_benchmark.sh adds a row to the 91-field runtime ledger file
+which includes (but is not limited to) the following:
 
 - **System:** `hostname`, `os_version`, `kernel_version`, `cpu_model`, `network_download_mb_s`
 - **GPU:** `gpu_driver_version`, `gpu_name`, `gpu_vram`, `gpu_count`
