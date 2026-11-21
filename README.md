@@ -255,7 +255,7 @@ Download, install, and run an entire bundle of 32 repositories (AMD Ubuntu 24.04
 | AMD · Ubuntu 26.04 | `bundle-amd-ubuntu-2604` | 301–332 |
 | NVIDIA · Ubuntu 26.04 | `bundle-nvidia-ubuntu-2604` | 401–432 |
 
-**2. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
+**2. Download it and check it** (AMD · Ubuntu 24.04 shown. Replace with your bundle name if different):
 
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
