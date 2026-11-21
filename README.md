@@ -320,9 +320,6 @@ For anything longer than a few minutes, start `tmux new -s bench` first, so a dr
 
 **tmux:** detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`. An AMD restart during the first install ends the session; log back in and run the same command again.
 
-To copy results to your laptop, see [Operator Tools (collect results to your laptop)](#operator-tools-collect-results-to-your-laptop) above.
-
-
 ---
 ### ✅ Chapter Three Takeaways
 
