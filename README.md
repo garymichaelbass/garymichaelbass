@@ -33,6 +33,19 @@
 </a>
 
 ---
+### Benchmark Categories
+
+The workload suites cover seven primary areas:
+
+- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
+- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
+- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
+- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
+- **System Validation & Reliability** — correctness testing and hardware/software health validation
+- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
+- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
+
+---
 ## 📊 Workload Repository Matrix
 
 | Workload Description | AMD&nbsp;/&nbsp;24.04 | NVIDIA&nbsp;/&nbsp;24.04 | AMD&nbsp;/&nbsp;26.04 | NVIDIA&nbsp;/&nbsp;26.04 |
@@ -87,18 +100,6 @@
 Download and open the Excel workbook to review workload definitions,
 validation objectives, metrics, and execution parameters.
 
----
-### Benchmark Categories
-
-The workload suites cover seven primary areas:
-
-- **Memory, Bandwidth & Data Movement** — HBM, fabric, host/device transfers, cache, and bandwidth stress
-- **AI Training & Inference** — CNN, Transformer, diffusion, and JAX model training and inference
-- **Compute & Math Kernels** — BLAS, LINPACK, microbenchmarks, and mathematical compute kernels
-- **LLM Inference & Serving** — vLLM throughput and latency, KV cache, token generation, and SGLang serving
-- **System Validation & Reliability** — correctness testing and hardware/software health validation
-- **System Profiling & Performance Analysis** — telemetry, counters, and timing characterization
-- **End-to-End Application Pipelines** — full-stack application paths such as FAISS-based RAG
 
 ---
 ### System Requirements
@@ -170,7 +171,7 @@ bash run_benchmark.sh --smoke  # Performs initial setup then runs benchmark (smo
 Inspect run results:
 
 ```bash
-ls -a results/raw                         # List results/raw directory name
+ls results/raw                            # List results/raw directory name
 cat results/raw/*/metrics_summary.txt     # Display metrics stored in file
 ls -a results/raw/*                       # List contents of results/raw/* directory
 bash run_benchmark.sh --smoke --repeat 2  # Run the test two more times to generate additional results
@@ -181,7 +182,7 @@ bash list_runs.sh                         # List every run on the server via `/v
 ---
 ### Runtime Ledger (/var/opt/benchmarks/runtime_ledger.csv)
 
-Each execution of run_benchmark.sh adds a row to the runtime ledger file
+Each execution of run_benchmark.sh adds a row to the runtime ledger file (91 columns)
 which includes (but is not limited to) the following columns.
 
 - **System:** `hostname`, `os_version`, `kernel_version`, `cpu_model`, `network_download_mb_s`
