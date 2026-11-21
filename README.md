@@ -255,7 +255,7 @@ Download, install, and run an entire bundle of 32 repositories (AMD Ubuntu 24.04
 | AMD · Ubuntu 26.04 | `bundle-amd-ubuntu-2604` | 301–332 |
 | NVIDIA · Ubuntu 26.04 | `bundle-nvidia-ubuntu-2604` | 401–432 |
 
-**2. Download it and check it** (as root; AMD · Ubuntu 24.04 shown, replace the bundle name for yours):
+**2. Download it and check it** (AMD · Ubuntu 24.04 shown. Replace with your bundle name if different):
 
 > Use `git clone --recurse-submodules` exactly as shown. Each workload folder is a link to its own
 > repository; GitHub's **Download ZIP** does not follow those links and leaves the folders empty.
@@ -319,6 +319,9 @@ For anything longer than a few minutes, start `tmux new -s bench` first, so a dr
 - **Per suite:** logs go to `/opt/benchmarks/benchmark_suite_log/`, and the suite ends with a pass/fail summary.
 
 **tmux:** detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`. An AMD restart during the first install ends the session; log back in and run the same command again.
+
+To copy results to your laptop, see [Operator Tools (collect results to your laptop)](#operator-tools-collect-results-to-your-laptop) above.
+
 
 ---
 ### ✅ Chapter Three Takeaways
@@ -470,7 +473,7 @@ The generated repositories (plua some extra files) are written in `workspace/` a
 - Set up a GPU system with an SSH key; set up PC with Git, Bash, Python 3.12+, and an AI agent
 - Create `~/gpu-bench/workspace`, clone the generator, install dependencies, open the workspace
 - One three-line prompt: `@AI_AGENT_INSTRUCTIONS.md`, a workload range, `ssh` command
-- In about 90+ minutes, 32 repos are generated, installed, and validated on your GPU system
+- In about 120+ minutes, 32 repos are generated, installed, and validated on your GPU system
 - Self-contained, relocatable, ready-to-use repos land in `~/gpu-bench/workspace`
 
 <br>
