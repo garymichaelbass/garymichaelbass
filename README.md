@@ -227,7 +227,7 @@ On your local laptop, the runtime ledger file is saved as a CSV file and as an E
 - The first benchmark run is longest (calls `run_setup.sh`) with subsequent runs being shorter
 - Results, logs, and metrics are stored automatically for each run in `results/raw`
 - Each run gets its own folder: `<timestamp>_WORKLOAD-<NNN>_SYSTEM-<host>`
-- `show_metrics.sh` (one workload) and `list_runs.sh` (all runs) work on the server or your laptop
+- `show_metrics.sh` (one workload) & `list_runs.sh` (all runs) work on the server and your laptop
 
 
 <br>
@@ -235,6 +235,8 @@ On your local laptop, the runtime ledger file is saved as a CSV file and as an E
 ---
 ---
 ## CHAPTER THREE: Run a Full Test Suite (32 workloads)
+
+Download, install, and run an entire bundle of 32 repositories (AMD Ubuntu 24.04; workloads 101 to 132).
 
 **1. Pick the bundle for your machine** (it must match the server's GPU and Ubuntu version).
 
