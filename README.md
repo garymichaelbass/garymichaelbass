@@ -115,24 +115,24 @@ No server? See [Getting started on AMD Developer Cloud](https://github.com/garys
 ---
 ### Repository Layout & Execution Model
 
-Every one of the 128 repositories follows the same structure, Once you have run, you know how to run all of them.
+Every one of the 128 repositories follows the same structure, Once you have run one, you know how to run all of them.
 
 ```text
 <NNN>-<repo>/
 ├── README.md             # how to run this workload, its metrics and parameters
 ├── SPEC.md               # the workload specification
-├── RESULTS_REFERENCE.md  # reference results from the validated run on real GPU hardware
+├── RESULTS_REFERENCE.md  # reference results from the validation smoke run on real GPU hardware
 ├── run_setup.sh          # installs the ROCm/CUDA + Python stack (run_benchmark.sh calls it on first use)
 ├── run_benchmark.sh      # bash run_benchmark.sh --smoke|--baseline|--extended
 ├── show_metrics.sh       # bash show_metrics.sh NNN: this workload's runs from the ledger
 ├── list_runs.sh          # bash list_runs.sh [--host <server-address>]: every run in the ledger
 ├── config/               # benchmark_config.yaml, hardware profiles
-├── docs/                 # PRD.md, GENERATION_REPORT.md
+├── docs/                 # PRD.md and the install/run contracts
 ├── scripts/              # parse_results.py, validate_results.py, ...
 ├── src/                  # benchmark source, where the workload builds its own code
 ├── tests/                # tests and fixtures
 ├── .github/workflows/    # CI workflows
-└── results/
+└── results/              # created by the first run
     ├── raw/              # one folder per run: logs, metrics, hardware/software inventory
     ├── RESULTS_ACTUAL.md # latest run of each profile, readable
     ├── benchmark.db      # latest run (SQLite)
@@ -320,16 +320,13 @@ For anything longer than a few minutes, start `tmux new -s bench` first, so a dr
 
 **tmux:** detach with **Ctrl+B** then **D**; reattach with `tmux attach -t bench`. An AMD restart during the first install ends the session; log back in and run the same command again.
 
-To copy results to your laptop, see [Operator Tools (collect results to your laptop)](#operator-tools-collect-results-to-your-laptop) above.
-
-
 ---
 ### ✅ Chapter Three Takeaways
 
 - Clone the matching bundle with `git clone --recurse-submodules` (not Download ZIP)
 - After cloning, all 32 repositories reside in `/opt/benchmarks`
 - Install, execute, and validate all 32 workloads with `bash run_benchmark_suite.sh --smoke`
-- First smoke run (includes `run_setup.sh`setup) is longest with subsequent runs being shorter
+- First smoke run (includes `run_setup.sh` setup) is longest with subsequent runs being shorter
 - Runtime ledger (`runtime_ledger.csv`) tracks benchmark run history across the entire system
 - Results kept per workload /results/raw, per machine ledger, and per runtime suite log
 
@@ -427,7 +424,7 @@ Remotely access Ubuntu VM with `ssh -i /path/to/.ssh/<your-key> root@<server-add
 
 **6. Submit the prompt**
 
-Paste the prompt into your AI coding agent’s chat box (in Cursor, the Agent panel) and press Enter to send it. Generating all 32 repositories typically takes 90 minutes or longer.
+Paste the prompt into your AI coding agent’s chat box (in Cursor, the Agent panel) and press Enter to send it. Generating all 32 repositories typically takes 120 minutes or longer.
 
 **7. Let it run**
 
@@ -439,7 +436,7 @@ workloads passed and how long the batch took.
 
 **8. Final result (Your Own Test Suite)**
 
-The generated repositories (plua some extra files) are written in `workspace/` as follows:
+The generated repositories (plus some extra files) are written in `workspace/` as follows:
 
 ```text
 ~/gpu-bench/
@@ -453,15 +450,19 @@ The generated repositories (plua some extra files) are written in `workspace/` a
     ├── list_runs.sh
     ├── README.md
     ├── run_benchmark_suite.sh
-    └── show_metrics.sh
+    ├── show_metrics.sh
+    ├── AI_AGENT_PROMPT_SUBMITTED_*.md  # the record of the run
+    ├── batch_generation_manifest.json
+    ├── batch_progress.log
+    └── batch_remote_output.log
 ```
 
 **What you get**
 
-- **32 repositories** in `workspace/`, `101-sys-bench-amd-rocm-stack-validation-ubu2404/` through `132-gpu-bench-amd-rag-faiss-end2end-ubu2404/`, each laid out as shown in [Repository Layout & Execution Model](#repository-layout--execution-model).
-- **Bundle files (including operator tools) in `workspace/`:** `get_benchmark_results.sh`, `list_runs.sh`, `README.md`, `run_benchmark_suite.sh`, and `show_metrics.sh`, 
+- **32 repositories** in `workspace/`, `101-sys-bench-amd-rocm-stack-validation-ubu2404/` through `132-gpu-bench-amd-rag-faiss-end2end-ubu2404/`, each laid out as shown in [Repository Layout & Execution Model](#repository-layout--execution-model), plus `docs/GENERATION_REPORT.md`, the record of how it was generated.
+- **Bundle files (including operator tools) in `workspace/`:** `get_benchmark_results.sh`, `list_runs.sh`, `run_benchmark_suite.sh`, `show_metrics.sh`, and a `README.md` that names the generator release it was made with, 
 **so `workspace/` looks like `/opt/benchmarks` after cloning a bundle.**
-- **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`) and `batch_generation_manifest.json`, which lists each workload's result and generation time.
+- **A record of the run** in `workspace/`: the prompt you submitted (`AI_AGENT_PROMPT_SUBMITTED_*.md`), `batch_generation_manifest.json`, which lists each workload's result and generation time, and the batch logs (`batch_progress.log`, `batch_remote_output.log`).
 - **A ready server.** Each workload is installed and smoke-tested in `/opt/benchmarks/<repo>`, and the suite tools are in `/opt/benchmarks`, so the commands in [After the install](#after-the-install) work there right away.
 
 **Congratulations. You've created 32 workloads!**
