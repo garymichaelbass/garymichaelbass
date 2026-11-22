@@ -353,7 +353,7 @@ An AI coding agent running [`ai-agent-gpu-benchmark-repo-generator`](https://git
 - takes a three-line prompt
 - uses the generator's process for repository creation
 - reads one line from the BenchmarkSpecDefinitions.xlsx file
-- builds each repository on your computer
+- builds that repository on your computer
 - copies it to your GPU server
 - runs the repository's setup and smoke tests on the GPU server
 - moves on to the next repository
