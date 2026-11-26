@@ -10,8 +10,6 @@
 
 I'm Gary Bass, a systems validation and release engineering leader in Austin, TX. I've spent 25+ years owning the quality gate for server, storage, network and platform products at IBM, Dell, HP, Ixia and Pitney Bowes. This project is my capstone. It applies that background to AI-era hardware: one framework that builds, installs, validates and reports on GPU workloads across two vendors and two operating systems.
 
-📧 [gary@garymichaelbass.com](mailto:gary@garymichaelbass.com) · 🏅 [Certifications on Credly](https://credly.com/users/gary-bass)
-
 ---
 
 ## CHAPTER ONE: Tour the Architecture
